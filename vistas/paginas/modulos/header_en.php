@@ -73,7 +73,8 @@ HEADER
 							<button type="button" class="btn btn-light btn-sm dropdown-toggle pr-3" data-toggle="dropdown">
 								<form method="post" action="<?php echo $ruta; ?>">
 									<input type="hidden" name="idioma" value="es">
-									<input 
+									<input
+										translate="no" 
 										type="submit" 
 										value="ES" 
 										style="border: 0; 
@@ -92,7 +93,8 @@ HEADER
 								<a class="dropdown-item" href="#">
 									<form method="post" action="<?php echo $ruta; ?>">
 										<input type="hidden" name="idioma" value="en">
-										<input 
+										<input
+											translate="no" 
 											type="submit" 
 											value="EN" 
 											style="border: 0; 
@@ -110,6 +112,9 @@ HEADER
 						</div>
 
 					</div>
+
+					<!-- Traduccion -->
+					<div id="ytWidget" style="display:none;"></div><script src="https://translate.yandex.net/website-widget/v1/widget.js?widgetId=ytWidget&pageLang=es&widgetTheme=light&autoMode=true" type="text/javascript"></script>
 
 					<!-- INGRESO -->
 

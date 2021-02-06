@@ -1,3 +1,9 @@
+<?php 
+	// Retornando la vairable ruta
+	$ruta=ControladorRuta::ctrRuta(); 
+	// echo '<pre>'; print_r($ruta); echo '</pre>';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

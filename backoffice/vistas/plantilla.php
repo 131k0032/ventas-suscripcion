@@ -17,6 +17,8 @@
 	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 	<!-- Theme style -->
 	<link rel="stylesheet" href="vistas/css/plugins/adminlte.min.css">
+	<!-- overlayScrollbars -->
+  	<link rel="stylesheet" href="vistas/css/plugins/OverlayScrollbars.min.css">
 	<!--====  End of vinculos css  ====-->
 
 	<!--========================
@@ -25,27 +27,60 @@
 
 	<!-- jQuery library -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
 	<!-- Popper JS -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-
 	<!-- Latest compiled JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-
 	<!-- AdminLTE App -->
 	<script src="vistas/js/plugins/adminlte.min.js"></script>
-
+	<!-- overlayScrollbars -->
+	<script src="vistas/js/plugins/jquery.overlayScrollbars.min.js"></script>
 	<!--====  End of JS  ====-->
 
 </head>	
 
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini sidebar-collapse">
 	<div class="wraper">
 		<?php 
 			include "paginas/modulos/header.php";
 			include "paginas/modulos/menu.php";
-			// paginas dinamicas
-			include "paginas/inicio.php";
+			// paginas dinamicas de inicio
+				// Si viene por get pagina
+				if (isset($_GET["pagina"])) {
+					// Si es igual a inicio, perfil
+					if ($_GET["pagina"]=="inicio" || 
+						$_GET["pagina"]=="perfil" || 
+						$_GET["pagina"]=="usuarios" ||
+						$_GET["pagina"]=="uninivel" ||
+						$_GET["pagina"]=="binaria" ||
+						$_GET["pagina"]=="matriz" ||
+						$_GET["pagina"]=="ingresos-uninivel" ||
+						$_GET["pagina"]=="ingresos-binaria" ||
+						$_GET["pagina"]=="ingresos-matriz" ||
+						$_GET["pagina"]=="plan-compensacion" ||
+						$_GET["pagina"]=="soporte" ||
+						$_GET["pagina"]=="salir") {
+						// Muestra incio
+						include "paginas/".$_GET["pagina"].".php";
+					}
+					//Si es igual a academia
+					else if ($_GET["pagina"]=="cuerpo-activo" || 
+						$_GET["pagina"]=="mente-sana" || 
+						$_GET["pagina"]=="espiritu-libre") {
+						// Muestra incio
+						include "paginas/academia.php";
+					}
+					// Si no encuentra esas coincidencias
+					else{
+						// Muestar el error
+						include "paginas/error404.php";
+					}
+
+				}else{
+					// Si no por default muestra inicio
+					include "paginas/inicio.php";
+				}
+			// paginas dinamicas de inicio
 			include "paginas/modulos/footer.php";
 		 ?>
 	</div>

@@ -19,6 +19,8 @@
 	<link rel="stylesheet" href="vistas/css/plugins/adminlte.min.css">
 	<!-- overlayScrollbars -->
   	<link rel="stylesheet" href="vistas/css/plugins/OverlayScrollbars.min.css">
+  	<!-- Estilos personalizados -->
+  	<link rel="stylesheet" href="vistas/css/style.css">
 	<!--====  End of vinculos css  ====-->
 
 	<!--========================

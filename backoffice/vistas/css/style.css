@@ -1,0 +1,13 @@
+/*----------  COLOR PEROSNALIZADO  ----------*/
+.bg-purple, .btn-purple{
+	background-color: #727cb6;
+	color:white;
+}
+
+.card-purple{
+	border-top:3px solid #727cb6;
+}
+
+.text-purple{
+	color:#727cb6;
+}

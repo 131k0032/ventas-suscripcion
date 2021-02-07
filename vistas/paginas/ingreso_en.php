@@ -14,16 +14,16 @@
 
 					<div class="d-flex justify-content-between">
 					
-						<h4>Ingreso al sistema</h4>
+						<h4>Access to website</h4>
 
 						<div class="dropdown text-right">
 
 							<button type="button" class="btn btn-light btn-sm dropdown-toggle border" data-toggle="dropdown">
 								<form method="post" action="<?php echo "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']; ?>">
-									<input type="hidden" name="idioma" value="es">
+									<input type="hidden" name="idioma" value="en">
 									<input 
 										type="submit" 
-										value="ES" 
+										value="EN" 
 										style="border: 0; 
 												background: 
 												transparent; 
@@ -39,10 +39,10 @@
 
 								<a class="dropdown-item">
 									<form method="post" action="<?php echo "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']; ?>">
-										<input type="hidden" name="idioma" value="en">
+										<input type="hidden" name="idioma" value="es">
 										<input 
 											type="submit" 
-											value="EN" 
+											value="ES" 
 											style="border: 0; 
 													background: 
 													transparent; 
@@ -61,17 +61,17 @@
 
 					<p class="text-center py-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi sunt officia unde officiis</p>
 
-					<input type="email" class="form-control my-3 py-3" placeholder="Correo Electrónico">
+					<input type="email" class="form-control my-3 py-3" placeholder="Email">
 
-					<input type="password" class="form-control my-3 py-3" placeholder="Contraseña">
+					<input type="password" class="form-control my-3 py-3" placeholder="password">
 
-					<input type="submit" class="form-control my-3 py-3 btn btn-info" value="Ingresar">
+					<input type="submit" class="form-control my-3 py-3 btn btn-info" value="Signin">
 
-					<p class="text-center py-3">¿Aún no tienes una cuenta? | <a href="<?php echo $ruta; ?>registro">Regístrate</a></p>
+					<p class="text-center py-3">Don't have an account? | <a href="<?php echo $ruta; ?>registro">Signup</a></p>
 					
 					<hr>
 
-					<p class="text-center py-3">¿Olvidó su contraseña?</p>
+					<p class="text-center py-3">Forgot your password?</p>
 
 
 				</form>
@@ -82,9 +82,9 @@
 
 		<div class="col-12 col-lg-8 fotoIngreso text-center">		
 
-			<a href="<?php echo $ruta; ?>inicio">><button class="d-none d-lg-block text-center btn btn-default btn-lg my-3 text-white btnRegresar">Regresar</button></a>
+			<a href="<?php echo $ruta; ?>inicio">><button class="d-none d-lg-block text-center btn btn-default btn-lg my-3 text-white btnRegresar">Back</button></a>
 
-			<a href="<?php echo $ruta; ?>inicio">><button class="d-block d-lg-none text-center btn btn-default btn-lg btn-block my-3 text-white btnRegresarMovil">Regresar</button></a>
+			<a href="<?php echo $ruta; ?>inicio">><button class="d-block d-lg-none text-center btn btn-default btn-lg btn-block my-3 text-white btnRegresarMovil">Back</button></a>
 
 			<ul class="p-0 m-0 py-4 d-flex justify-content-center redesSociales">
 

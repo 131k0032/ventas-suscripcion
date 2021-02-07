@@ -14,15 +14,15 @@
 
 						<div class="d-flex justify-content-between">
 						
-							<h4>Regístrate al sistema</h4>
+							<h4>Sign up to the system</h4>
 
 							<div class="dropdown text-right">
 
 								<button type="button" class="btn btn-light btn-sm dropdown-toggle pr-3" data-toggle="dropdown">
 									<form method="post" action="<?php echo "http://".$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"]; ?>">
 											
-											<input type="hidden" name="idioma" value="es">
-											<input type="submit" value="ES" style="border: 0;
+											<input type="hidden" name="idioma" value="en">
+											<input type="submit" value="EN" style="border: 0;
 																				    background: transparent;
 																				    padding: 0;
 																				    margin: 0;
@@ -36,12 +36,12 @@
 
 								<div class="dropdown-menu">
 
-									<a class="dropdown-item">
+									<a class="dropdown-item" href="#">
 										
 										<form method="post" action="<?php echo "http://".$_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"]; ?>">
 										
-											<input type="hidden" name="idioma" value="en">
-											<input type="submit" value="EN" style="border: 0;
+											<input type="hidden" name="idioma" value="es">
+											<input type="submit" value="ES" style="border: 0;
 																				    background: transparent;
 																				    padding: 0;
 																				    margin: 0;
@@ -61,25 +61,25 @@
 
 						<p class="text-center py-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi sunt officia unde officiis</p>
 
-						<input type="text" class="form-control my-3 py-3" placeholder="Nombre">
+						<input type="text" class="form-control my-3 py-3" placeholder="Name">
 
-						<input type="email" class="form-control my-3 py-3" placeholder="Correo Electrónico">
+						<input type="email" class="form-control my-3 py-3" placeholder="Email">
 
-						<input type="password" class="form-control my-3 py-3" placeholder="Contraseña">
+						<input type="password" class="form-control my-3 py-3" placeholder="Password">
 
 						<div class="form-check-inline text-right">
 							
 							<input type="checkbox" id="politicas" class="form-check-input">
 
 								<label class="form-check-label" for="politicas">
-							Para registrarse debe aceptar nuestras políticas de privacidad <span></span>
+							To register you must accept the terms and conditions<span></span>
 							</label>
 
 						</div>
 
-						<input type="submit" class="form-control my-3 py-3 btn btn-info" value="Registrarse">
+						<input type="submit" class="form-control my-3 py-3 btn btn-info" value="Sign up">
 
-						<p class="text-center py-3">¿Ya tienes una cuenta? | <a href="<?php echo $ruta; ?>ingreso">Ingresar</a></p>
+						<p class="text-center py-3">Do you already have an account? | <a href="<?php echo $ruta; ?>ingreso">Login</a></p>
 
 					</form>
 
@@ -89,9 +89,9 @@
 
 			<div class="col-12 col-lg-8 fotoRegistro text-center">		
 
-				<a href="<?php echo $ruta; ?>inicio"><button class="d-none d-lg-block text-center btn btn-default btn-lg my-3 text-white btnRegresar">Regresar</button></a>
+				<a href="<?php echo $ruta; ?>inicio"><button class="d-none d-lg-block text-center btn btn-default btn-lg my-3 text-white btnRegresar">Back</button></a>
 
-				<a href="<?php echo $ruta; ?>inicio"><button class="d-block d-lg-none text-center btn btn-default btn-lg btn-block my-3 text-white btnRegresarMovil">Regresar</button></a>
+				<a href="<?php echo $ruta; ?>inicio"><button class="d-block d-lg-none text-center btn btn-default btn-lg btn-block my-3 text-white btnRegresarMovil">Back</button></a>
 
 				<ul class="p-0 m-0 py-4 d-flex justify-content-center redesSociales">
 
@@ -125,5 +125,3 @@
 	</div>
 
 </div>
-
-

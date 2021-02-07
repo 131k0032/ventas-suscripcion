@@ -72,11 +72,11 @@ HEADER
 
 							<button type="button" class="btn btn-light btn-sm dropdown-toggle pr-3" data-toggle="dropdown">
 								<form method="post" action="<?php echo $ruta; ?>">
-									<input type="hidden" name="idioma" value="es">
+									<input type="hidden" name="idioma" value="en">
 									<input
 										translate="no" 
 										type="submit" 
-										value="ES" 
+										value="EN" 
 										style="border: 0; 
 												background: 
 												transparent; 
@@ -92,11 +92,11 @@ HEADER
 
 								<a class="dropdown-item" href="#">
 									<form method="post" action="<?php echo $ruta; ?>">
-										<input type="hidden" name="idioma" value="en">
+										<input type="hidden" name="idioma" value="es">
 										<input
 											translate="no" 
 											type="submit" 
-											value="EN" 
+											value="ES" 
 											style="border: 0; 
 													background: 
 													transparent; 

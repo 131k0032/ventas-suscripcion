@@ -62,11 +62,41 @@
 <?php 
 // Si viene en la url var pagina
 if(isset($_GET["pagina"])){
-	// Si es igual a estas variables get
-	if($_GET["pagina"]=="inicio" || $_GET["pagina"]=="ingreso" || $_GET["pagina"]=="registro" ){
+	// Si es igual a inicio
+	if($_GET["pagina"]=="inicio" ){
 		// Carga el archivo de inicio
-		include "paginas/".$_GET["pagina"].".php"; 
+		include "paginas/inicio.php"; 
 	}
+
+	// Si pagina es igual a ingreso
+	if($_GET["pagina"]=="ingreso"){
+		if(isset($_POST["idioma"])){
+			if ($_POST["idioma"]=="es") {
+				include "paginas/ingreso.php"; 
+			}else{
+				include "paginas/ingreso_en.php"; 
+			}
+		}else{
+			// Default español
+			include "paginas/ingreso.php"; 	
+		}
+	}
+
+	// Si pagina es igual a ingreso
+	if($_GET["pagina"]=="registro"){
+		if(isset($_POST["idioma"])){
+			if ($_POST["idioma"]=="es") {
+				include "paginas/registro.php"; 
+			}else{
+				include "paginas/registro_en.php"; 
+			}
+		}else{
+			// Default español
+			include "paginas/registro.php"; 	
+		}
+	}
+
+
 }else{
 
 	// Si no hay vairables get, solo carga el inicio

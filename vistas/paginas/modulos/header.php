@@ -89,7 +89,7 @@ HEADER
 
 							<div class="dropdown-menu">
 
-								<a class="dropdown-item" href="#">
+								<a class="dropdown-item">
 									<form method="post" action="<?php echo $ruta; ?>">
 										<input type="hidden" name="idioma" value="en">
 										<input 

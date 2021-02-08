@@ -90,8 +90,7 @@ input[type="checkbox"]:checked + label[for="aceptarTerminos"] span{
 
 }
 
-/*#signatureparent{
+#signatureparent{
 	width:300px; 
 	border-bottom:2px solid #333;
 }
-*/

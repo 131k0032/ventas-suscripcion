@@ -48,6 +48,9 @@
 	<script src="vistas/js/plugins/select2.full.min.js"></script>
 	<!-- inputmask -->
 	<script src="vistas/js/plugins/jquery.inputmask.js"></script>
+	<!-- jSignature -->
+	<script src="vistas/js/plugins/jSignature.js"></script>
+	<script src="vistas/js/plugins/jSignature.CompressorSVG.js"></script>
 	<!--====  End of JS  ====-->
 
 </head>	

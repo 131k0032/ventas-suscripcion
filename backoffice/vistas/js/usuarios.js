@@ -45,3 +45,21 @@ $("#inputPais").change(function(){
 
 /*----------  INPUTMASK  ----------*/
 $('[data-mask]').inputmask();
+
+/*----------  FIRMA DIGITAL   ----------*/
+$("#signatureparent").jSignature({
+
+  color:"#333", // line color
+  lineWidth:1, // Grosor de línea
+  // Ancho y alto área de la firma
+  idth:320,
+  height:100
+
+});
+
+// Cuado quiera volver a firmar, al darle clic en el boton .repetir firma
+$(".repetirFirma").click(function(){
+	// Toma el valor de la firma y lo resetea
+	$("#signatureparent").jSignature("reset");
+
+})

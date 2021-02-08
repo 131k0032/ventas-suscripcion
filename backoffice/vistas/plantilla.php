@@ -46,6 +46,8 @@
 	<script src="vistas/js/plugins/jdSlider.js"></script>
 	<!-- select2 -->
 	<script src="vistas/js/plugins/select2.full.min.js"></script>
+	<!-- inputmask -->
+	<script src="vistas/js/plugins/jquery.inputmask.js"></script>
 	<!--====  End of JS  ====-->
 
 </head>	

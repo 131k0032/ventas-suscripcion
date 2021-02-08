@@ -42,3 +42,6 @@ $("#inputPais").change(function(){
 	$(".dialCode").html($(this).val().split(",")[2])
 	// $(".dialCode").html($(this).val().split(",")[2])
 })
+
+/*----------  INPUTMASK  ----------*/
+$('[data-mask]').inputmask();

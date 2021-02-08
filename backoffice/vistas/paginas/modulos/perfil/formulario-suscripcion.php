@@ -60,7 +60,7 @@
 					<div class="input-group-prepend">
 						<span class="p-2 bg-info rounded-left dialCode">+57</span>
 					</div>
-					<input type="text" class="form-control" id="inputMovil">
+					<input type="text" class="form-control" id="inputMovil" data-inputmask="'mask':'(999) 999-9999'" data-mask>
 				</div>
 			</div>
 

@@ -19,6 +19,8 @@
 	<link rel="stylesheet" href="vistas/css/plugins/adminlte.min.css">
 	<!-- overlayScrollbars -->
   	<link rel="stylesheet" href="vistas/css/plugins/OverlayScrollbars.min.css">
+  	<!-- jdSlider -->
+	<link rel="stylesheet" href="vistas/css/plugins/jdSlider.css">
   	<!-- Estilos personalizados -->
   	<link rel="stylesheet" href="vistas/css/style.css">
 	<!--====  End of vinculos css  ====-->
@@ -37,12 +39,15 @@
 	<script src="vistas/js/plugins/adminlte.min.js"></script>
 	<!-- overlayScrollbars -->
 	<script src="vistas/js/plugins/jquery.overlayScrollbars.min.js"></script>
+	<!-- jdSlider -->
+	<!-- https://www.jqueryscript.net/slider/Carousel-Slideshow-jdSlider.html -->
+	<script src="vistas/js/plugins/jdSlider.js"></script>
 	<!--====  End of JS  ====-->
 
 </head>	
 
 <body class="hold-transition sidebar-mini sidebar-collapse">
-	<div class="wraper">
+	<div class="wrapper">
 		<?php 
 			include "paginas/modulos/header.php";
 			include "paginas/modulos/menu.php";
@@ -86,6 +91,10 @@
 			include "paginas/modulos/footer.php";
 		 ?>
 	</div>
+
+	<!-- Js del slide de inicio -->
+	<script src="vistas/js/inicio.js"></script>
+
 </body>
 
 </html>

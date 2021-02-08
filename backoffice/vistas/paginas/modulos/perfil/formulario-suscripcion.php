@@ -46,7 +46,7 @@
 			</div>
 
 			<div class="form-group">
-				<label for="inputPais" class="control-label">Pais</label>
+				<label for="inputPais" class="control-label py-1">Pais</label>
 				<div>
 					<select class="form-control select2" name="" id="inputPais">
 						<option value="">Seleccionar pais</option>

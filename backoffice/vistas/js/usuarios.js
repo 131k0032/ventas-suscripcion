@@ -63,3 +63,68 @@ $(".repetirFirma").click(function(){
 	$("#signatureparent").jSignature("reset");
 
 })
+
+/*----------  VALIDAR CAMPOS DE SUSCRIPCION  ----------*/
+// Al darle clic al boton .suscribirse del form
+$(".suscribirse").click(function (){
+
+	// Remueve el alert al dar clic en el boton suscribirse
+	$(".alert").remove();
+
+	var nombre = $("#inptName").val();
+	// console.log("nombre", nombre);
+	var email = $("#inputEmail").val();
+	// console.log("email", email);
+	var patrocinador = $("#inputPatrocinador").val();
+	// console.log("patrocinador", patrocinador);
+	var enlace_afiliado = $("#inputAfiliado").val();
+	// console.log("enlace_afiliado", enlace_afiliado);
+	var pais = $("#inputPais").val().split(",")[0];//[0]Contiene el pais
+	// console.log("pais", pais);
+	var codigo_pais = $("#inputPais").val().split(",")[1];//[1]Contiene el codigo
+	// console.log("codigo_pais", codigo_pais);
+	var telefono_movil = $("#inputPais").val().split(",")[2]+" "+$("#inputMovil").val(); [2]//codigo del pais+el telefono
+	// console.log("telefono_movil", telefono_movil);
+	var red = $("#tipoRed").val();
+	// console.log("red", red);
+	var aceptarTerminos = $("#aceptarTerminos:checked").val();//Si esta chekeado
+	// console.log("aceptarTerminos", aceptarTerminos);
+
+	// Validamos la firma
+	if($("#signatureparent").jSignature("isModified")){
+		// Almacenamos el codigo svg en una variable
+		var firma = $("#signatureparent").jSignature("getData", "image/svg+xml");
+		// console.log("firma", firma);
+
+	}
+
+	// Validamos informacion de los campos
+	if( nombre == "" ||
+		email == "" ||
+		patrocinador == "" ||
+		enlace_afiliado == "" ||
+		pais == "" ||
+		codigo_pais == "" ||
+		telefono_movil == "" ||
+		red == "" ||
+		aceptarTerminos != "on" ||
+		//Si no es modificada el espacio de firma
+		!$("#signatureparent").jSignature('isModified')){
+
+			// Mostramos un alert antes del boton suscribirse
+			$(".suscribirse").before(`
+
+				<div class="alert alert-danger">Faltan datos, no ha aceptado o no ha firmado los términos y condiciones</div>
+
+
+			`);
+
+		// Retorna y no deja avanzar
+		return;
+
+
+	}else{
+		// Si todo sale bien
+		console.log("formulario listo");
+	}
+})

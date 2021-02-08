@@ -110,9 +110,8 @@ if(isset($_GET["pagina"])){
 
 
 
-
+<!-- Script general -->
 <script src="js/script.js"></script>
-
 </body>
 
 </html>

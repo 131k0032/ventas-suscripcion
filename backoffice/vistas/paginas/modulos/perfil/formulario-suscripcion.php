@@ -48,7 +48,7 @@
 			<div class="form-group">
 				<label for="inputPais" class="control-label">Pais</label>
 				<div>
-					<select class="form-control" name="" id="inputPais">
+					<select class="form-control select2" name="" id="inputPais">
 						<option value="">Seleccionar pais</option>
 					</select>
 				</div>

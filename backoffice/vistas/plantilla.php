@@ -21,6 +21,8 @@
   	<link rel="stylesheet" href="vistas/css/plugins/OverlayScrollbars.min.css">
   	<!-- jdSlider -->
 	<link rel="stylesheet" href="vistas/css/plugins/jdSlider.css">
+	<!-- select2 -->
+	<link rel="stylesheet" href="vistas/css/plugins/select2.min.css">
   	<!-- Estilos personalizados -->
   	<link rel="stylesheet" href="vistas/css/style.css">
 	<!--====  End of vinculos css  ====-->
@@ -42,6 +44,8 @@
 	<!-- jdSlider -->
 	<!-- https://www.jqueryscript.net/slider/Carousel-Slideshow-jdSlider.html -->
 	<script src="vistas/js/plugins/jdSlider.js"></script>
+	<!-- select2 -->
+	<script src="vistas/js/plugins/select2.full.min.js"></script>
 	<!--====  End of JS  ====-->
 
 </head>	
@@ -94,6 +98,8 @@
 
 	<!-- Js del slide de inicio -->
 	<script src="vistas/js/inicio.js"></script>
+	<!-- Scripts de usuarios -->
+	<script src="vistas/js/usuarios.js"></script>
 
 </body>
 

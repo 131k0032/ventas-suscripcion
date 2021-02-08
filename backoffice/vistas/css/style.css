@@ -60,3 +60,38 @@
 .slide-area li a figure.desactivado img{
 	opacity: .5;
 }
+
+/*----------  Checkbox suscripcion  ----------*/
+/*Ocultamos el input checkbox*/
+input[type="checkbox"]{
+	display:none;
+}
+
+/*Al darle clic*/
+label[for="aceptarTerminos"] span{
+	display:inline-block;
+	width:20px;
+	height:20px;
+	background:#E9ECEF;
+	vertical-align:middle;
+	border-radius:100%;
+	margin-right: 5px;
+	border:1px solid #aaa;
+	cursor:pointer;
+}
+
+/*Cuando checkee el input afecta al span*/
+input[type="checkbox"]:checked + label[for="aceptarTerminos"] span{
+	background:url(../img/plantilla/check.png);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	border:1px solid #fff;
+
+}
+
+/*#signatureparent{
+	width:300px; 
+	border-bottom:2px solid #333;
+}
+*/

@@ -10,8 +10,6 @@
 				
 					<a href="<?php echo $ruta; ?>inicio"><img src="img/logo-positivo.png" class="img-fluid px-5"></a>
 
-					<form class="mt-3 px-4">
-
 						<div class="d-flex justify-content-between">
 						
 							<h4>Regístrate al sistema</h4>
@@ -61,11 +59,15 @@
 
 						<p class="text-center py-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi sunt officia unde officiis</p>
 
-						<input type="text" class="form-control my-3 py-3" placeholder="Nombre">
+						<form class="mt-3 px-4" method="post">
 
-						<input type="email" class="form-control my-3 py-3" placeholder="Correo Electrónico">
+						<input type="hidden" value="academy-of-life" name="patrocinador">
 
-						<input type="password" class="form-control my-3 py-3" placeholder="Contraseña">
+						<input type="text" class="form-control my-3 py-3" placeholder="Nombre" name="registroNombre" required>
+
+						<input type="email" class="form-control my-3 py-3" placeholder="Correo Electrónico" name="registroEmail" required>
+
+						<input type="password" class="form-control my-3 py-3" placeholder="Contraseña" name="registroPassword" required>
 
 						<div class="form-check-inline text-right">
 							
@@ -76,7 +78,10 @@
 							</label>
 
 						</div>
-
+						<?php 
+							$registro= new ControladorUsuarios(); //Instanciando la clase
+							$registro->ctrRegistroUsuario(); //Llamamos el objeto o funcion
+						 ?>
 						<input type="submit" class="form-control my-3 py-3 btn btn-info" value="Registrarse">
 
 						<p class="text-center py-3">¿Ya tienes una cuenta? | <a href="<?php echo $ruta; ?>ingreso">Ingresar</a></p>

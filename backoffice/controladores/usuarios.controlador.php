@@ -1,4 +1,7 @@
 <?php 
+// LLamando a las clases de PHPmailer
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 class ControladorUsuarios{
 
@@ -35,7 +38,61 @@ class ControladorUsuarios{
 				
 
 					if($respuesta=="ok"){
-						echo '<script>
+						// Enviando email
+						date_default_timezone_set("America/Cancun");//Zona hooraria en al que se manda el correo
+						$mail = new PHPmailer;
+						$mail->CharSet = 'UTF-8';
+						$mail->isMail();
+						$mail->setFrom('masterchief22010@hotmail.com','La mera reata jeje'); //De donde se envia la info
+						$mail->addReplyTo('masterchief22010@hotmail.com','La mera reata jeje');//Por si necesitan responder
+						$mail->Subject = "Por favor checa tu correo";
+						$mail->addAddress($_POST["registroEmail"]);// a quien se envia el correo
+						$mail->msgHTML('
+							<div style="width: 100%; background:#eee; position: relative; font-family: sans-serif; padding-bottom:40px;">
+									<center>
+										<img style="padding:20px; width: 10px;" src="http://tutorialesatualcance.com/tienda/logo.png" alt="">
+									</center>
+
+									<div style="position: relative; margin:auto; width: 600px; background: white; padding: 20px;">
+										<center>
+											<img style="padding: 20px; width: 15%;" src="http://tutorialesatualcance.com/tienda/icon-email.png" alt="">
+											<h3 style="font-weight: 100; color: #999">Verifica tu correo men</h3>
+											<hr style="border: 1px solid #ccc; width: 80%;">
+											<h4 style="font-weight: 100; color: #999; padding: 0 20px;">Para usar su cienta de tienda virtual debes confirmar tu cuenta pliz</h4>
+
+											<a href="'.$ruta.$emailEncriptado.'" target="_blank" style="text-decoration: none;">
+												<div style="line-height: 60px; background: #0aa; width: 60%; color: white;" >Verifica tu correo electronico</div>
+											</a>
+
+											<br>
+
+											<hr style="border: 1px solid #ccc; width: 80%;">
+											<h5 style="font-weight: 100; color: #999;">Si no te inscribiste en este sitio omite el correo y se va eliminar jeje</h5>
+										</center>
+									</div>
+
+								</div>');
+
+						$envio=$mail->Send();
+						// Si no se envia
+						if(!$envio){
+							echo '<script>
+							swal({
+								type:"error",  
+								title: "¡No se ha podido enviar el correo a '.$_POST["registroEmail"].' '.$mail->ErrorInfo.' intenta nuevamente ",
+								text: "¡Escriba bien sus datos plis!",
+								showConfirmButton: true,
+								confirmButtonText: "Cerrar"
+
+							}).then(function(result){
+
+								if(result.value){
+									history.back();
+								}
+							});	
+						</script>';
+						}else{
+							echo '<script>
 							swal({
 								type:"success",
 								title: "¡SU CUENTA HA SIDO CREADA CORRECTAMENTE!",
@@ -48,7 +105,9 @@ class ControladorUsuarios{
 									window.location = "'.$ruta.'ingreso";
 								}
 							});	
-						</script>';
+						</script>';							
+						}
+
 					}
 						
 			// Si no cumple con el pregmatch
@@ -78,6 +137,16 @@ class ControladorUsuarios{
 		static public function ctrMostrarUsuario($item, $valor){
 			$tabla="usuarios";
 			$respuesta=ModeloUsuarios::mdlMostrarUsuario($tabla, $item, $valor);
+			return $respuesta;//Retorna respuesta al archivo de ajax.usuarios.php
+		}
+
+
+		/*----------  Actualizar  usuarios  ----------*/
+		// $item=nombre de la columna
+		// $valor=valor de esa columna
+		static public function ctrActualizarUsuario($id, $item, $valor){
+			$tabla="usuarios";
+			$respuesta=ModeloUsuarios::mdlActualizarUsuario($tabla, $id, $item, $valor);
 			return $respuesta;//Retorna respuesta al archivo de ajax.usuarios.php
 		}
 	}

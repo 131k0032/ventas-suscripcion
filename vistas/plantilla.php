@@ -63,6 +63,41 @@
 <?php 
 // Si viene en la url var pagina
 if(isset($_GET["pagina"])){
+	
+	// validar correo
+	$item="email_encriptado"; //Campo en bd
+	$valor=$_GET["pagina"];
+
+	$validarCorreo=ControladorUsuarios::ctrMostrarUsuario($item, $valor);
+
+	// Si la url es igual al resultado de la consulta
+	if(isset($validarCorreo["email_encriptado"])==$_GET["pagina"]){
+
+		$id=$validarCorreo["id"];
+		$item="verificacion";
+		$valor=1;
+
+		$respuesta=ControladorUsuarios::ctrActualizarUsuario($id, $item, $valor);
+
+		if($respuesta=="ok"){
+			echo '<script>
+					swal({
+						type:"success",
+						title: "¡SU CUENTA HA SIDO VERIICADA CORRECTAMENTE!",
+						text: "¡Por favor YA PUEDES ENTRAR!",
+						showConfirmButton: true,
+						confirmButtonText: "Cerrar"
+					}).then(function(result){
+
+						if(result.value){
+							window.location = "'.$ruta.'ingreso";
+						}
+					});	
+				</script>';	
+		}
+
+	}
+
 	// Si es igual a inicio
 	if($_GET["pagina"]=="inicio" ){
 		// Carga el archivo de inicio

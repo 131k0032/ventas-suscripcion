@@ -29,7 +29,6 @@
 
 	<!-- Fuente Open Sans -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed|Roboto:100|Grand+Hotel" rel="stylesheet">
-
 	<!-- Hoja Estilo Personalizada -->
 	<link rel="stylesheet" href="css/style.css">
 
@@ -54,6 +53,8 @@
 
 	<!-- https://www.jqueryscript.net/loading/Handle-Loading-Progress-jQuery-Nite-Preloader.html -->
 	<script src="js/plugins/jquery.nite.preloader.js"></script>
+	<!-- Sweet alert -->
+	<script src="js/plugins/sweetalert2.all.js"></script>
 
 </head>
 

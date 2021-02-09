@@ -58,8 +58,9 @@
 						</div>
 
 						<p class="text-center py-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi sunt officia unde officiis</p>
-
-						<form class="mt-3 px-4" method="post">
+						<!-- Antes de enviar el form, primero ejecuta las function validarPoliticas() -->
+						<!-- Si returna falso, no envia el formulario de lo contrario pues envia el form-->
+						<form class="mt-3 px-4" method="post" onsubmit="return validarPoliticas()">
 
 						<input type="hidden" value="academy-of-life" name="patrocinador">
 
@@ -74,7 +75,7 @@
 							<input type="checkbox" id="politicas" class="form-check-input">
 
 								<label class="form-check-label" for="politicas">
-							Para registrarse debe aceptar nuestras políticas de privacidad <span></span>
+							Para registrarse debe aceptar nuestras <a href="#"> políticas de privacidad</a> <span></span>
 							</label>
 
 						</div>

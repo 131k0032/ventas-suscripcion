@@ -164,6 +164,15 @@ $('body').nitePreload({
 });
 
 /*=============================================
+REMOVER ALERTAS DE EMIAL Y CHECKBOS
+=============================================*/
+// Remueve las alertas de registroEmail y politicas siempre que estas cambien
+$("input[name='registroEmail'], #politicas").change(function(){
+		//Ruemueve el alert depues de cada cambio del input registroEmail
+	$(".alert").remove();
+})
+
+/*=============================================
 VALIDAR EMAIL REPETIDO
 =============================================*/
 // Capturamos el value del input hidden de plantilla.php
@@ -172,8 +181,7 @@ var ruta = $("#ruta").val();
 // Tomamos el input con nombre registroEmail 
 // Al cambiar ejecuta una funcion
 $("input[name='registroEmail']").change(function(){
-	//Ruemueve el alert depues de cada cambio del input registroEmail
-	$(".alert").remove();
+
 	// Tomamos este valor que se coloque al momento
 	var email = $(this).val();
 	// console.log("email", email);
@@ -212,3 +220,24 @@ $("input[name='registroEmail']").change(function(){
 	})
 
 })
+
+
+/*=============================================
+VALIDAR EMAIL REPETIDO
+=============================================*/
+function validarPoliticas(){
+	// Tomamos el checkbox de id politicas el atributo checked
+	var politicas =$("#politicas:checked").val();
+		// Si no esta checkado
+		if (politicas!="on") {
+				$("#politicas").before(`
+					<div class="alert alert-danger">
+						<strong>Uy </stron>Primero acepta las politicas we 
+					</div>`)
+				// No deja que se mande el form
+				return false;
+		}else{
+			return true;
+		}
+	
+}

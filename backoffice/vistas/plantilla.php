@@ -1,3 +1,28 @@
+<?php 
+	// Al hacer esto puedo trabajar con variables de sesion en cualquier parte
+	session_start(); 
+	// variables generales definidas del ControladorGeneral en general.controlador.php
+	$ruta=ControladorGeneral::ctrRuta();
+	$valorSuscripcion=ControladorGeneral::ctrValorSuscripcion();
+	$patrocinador=ControladorGeneral::ctrPatrocinador();
+
+	// Si no existe la sesion de validarSesion
+	if (!isset($_SESSION["validarSesion"])) {
+		// Mandalo al ingreso
+		echo '<script>
+				window.location="'.$ruta.'ingreso"
+			</script>';
+		// Para cancelar cualquier ejecucion de codigo
+		return;
+	}
+
+$item="id";//Campo id
+$valor=$_SESSION["id"]; //valor del campo id
+$usuario=ControladorUsuarios::ctrMostrarUsuario($item, $valor);
+// echo '<pre>'; print_r($usuario); echo '</pre>';
+
+
+?>
 <!DOCTYPE html>
 <html>
 <head>

@@ -68,6 +68,7 @@
 					<?php 
 						$ingreso= new ControladorUsuarios(); //Instanciando la clase
 						$ingreso->ctrIngresoUsuario(); //Llamamos el objeto o funcion
+						var_dump($ingreso);
 					 ?>
 
 					<input type="submit" class="form-control my-3 py-3 btn btn-info" value="Ingresar">

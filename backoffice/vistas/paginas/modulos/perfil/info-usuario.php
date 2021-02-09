@@ -6,11 +6,11 @@
 			</div>
 
 				<h3 class="profile-user-name text-center">
-					Administrador
+					<?php echo $usuario["nombre"]; ?>
 				</h3>
 
 				<p class="text-muted text-center">
-					info@academyoflife.com
+					<?php echo $usuario["email"]; ?>
 				</p>
 				<div class="text-center">
 					<button class="btn btn-primary btn-sm"> Cambiar foto</button>

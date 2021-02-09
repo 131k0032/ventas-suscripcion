@@ -1,4 +1,7 @@
 <?php 
+	// Al hacer esto puedo trabajar con variables de sesion en cualquier parte
+	// Recuerda iniciar sesion en plantilla del backoffice y del frontend
+	session_start(); 
 	// Retornando la vairable ruta
 	$ruta=ControladorRuta::ctrRuta(); 
 	// echo '<pre>'; print_r($ruta); echo '</pre>';

@@ -16,21 +16,21 @@
 			<div class="form-group">
 				<label for="inputName" class="control-label">Nombre completo</label>
 				<div>
-					<input type="text" class="form-control" id="inputName" value="administrador" readonly>
+					<input type="text" class="form-control" id="inputName" value="<?php echo $usuario["nombre"]; ?>" readonly>
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label for="inputEmail" class="control-label">Correo electrónico</label>
 				<div>
-					<input type="email" class="form-control" id="inputEmail" value="info@academyoflife.com" readonly>
+					<input type="email" class="form-control" id="inputEmail" value="<?php echo $usuario["email"]; ?>" readonly>
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label for="inputPatrocinador" class="control-label">Patrocinador</label>
 				<div>
-					<input type="text" class="form-control" id="inputPatrocinador" value="academy-of-life" readonly>
+					<input type="text" class="form-control" id="inputPatrocinador" value="<?php echo $usuario["patrocinador"]; ?>" readonly>
 				</div>
 			</div>
 
@@ -41,7 +41,11 @@
 					<div class="input-group-prepend">
 						<span class="p-2 bg-info rounded-left">http://academyoflife.com/</span>
 					</div>
-					<input type="text" class="form-control" id="inputAfiliado" value="academy-of-life" readonly>
+					<!-- Primero deja en minusculas todos los caracteres -->
+					<!-- Luego reemplaza los espacion vacios por guiones lo que venga de $usuario["nombre"]-->
+					<!-- strtolower( str_replace(" ", "-", $usuario["nombre"])); -->
+					<!-- Y concatenamos con el id del user -->
+					<input type="text" class="form-control" id="inputAfiliado" value="<?php echo strtolower( str_replace(" ", "-", $usuario["nombre"]))."-".$usuario["id"]; ?>" readonly>
 				</div>
 			</div>
 

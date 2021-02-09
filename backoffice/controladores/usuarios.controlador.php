@@ -188,6 +188,10 @@ class ControladorUsuarios{
 							return;
 						// Si está verificado mandalo al backoffice
 						}else{
+							// Inicio de variables de sesion
+							$_SESSION["validarSesion"]="ok";//Para ver si se inicia sesion
+							$_SESSION["id"]=$respuesta["id"];//Campo id de la consulta $respuesta::mdlMostrarUsuario
+
 							// Para redirigir al user
 							$ruta=ControladorRuta::ctrRuta();
 							echo '<script>

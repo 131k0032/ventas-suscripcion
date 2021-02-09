@@ -10,8 +10,6 @@
 			
 				<a href="<?php echo $ruta; ?>inicio"><img src="img/logo-positivo.png" class="img-fluid"></a>
 
-				<form class="mt-5">
-
 					<div class="d-flex justify-content-between">
 					
 						<h4>Access to website</h4>
@@ -60,18 +58,24 @@
 					</div>
 
 					<p class="text-center py-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi sunt officia unde officiis</p>
+					<form class="mt-5" method="post">
+						
+					<input type="email" class="form-control my-3 py-3" placeholder="Correo Electrónico" name="ingresoEmail" required>
 
-					<input type="email" class="form-control my-3 py-3" placeholder="Email">
+					<input type="password" class="form-control my-3 py-3" placeholder="Contraseña" name="ingresoPassword" required>
 
-					<input type="password" class="form-control my-3 py-3" placeholder="password">
+					<?php 
+						$ingreso= new ControladorUsuarios(); //Instanciando la clase
+						$ingreso->ctrIngresoUsuario(); //Llamamos el objeto o funcion
+					 ?>
 
-					<input type="submit" class="form-control my-3 py-3 btn btn-info" value="Signin">
+					<input type="submit" class="form-control my-3 py-3 btn btn-info" value="Ingresar">
 
-					<p class="text-center py-3">Don't have an account? | <a href="<?php echo $ruta; ?>registro">Signup</a></p>
+					<p class="text-center py-3">¿Aún no tienes una cuenta? | <a href="<?php echo $ruta; ?>registro">Regístrate</a></p>
 					
 					<hr>
 
-					<p class="text-center py-3">Forgot your password?</p>
+					<p class="text-center py-3">¿Olvidó su contraseña?</p>
 
 
 				</form>

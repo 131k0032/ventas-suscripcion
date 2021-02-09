@@ -71,5 +71,14 @@ class ControladorUsuarios{
 					}
 			}
 		}
+
+		/*----------  Registro de usuarios  ----------*/
+		// $item=nombre de la columna
+		// $valor=valor de esa columna
+		static public function ctrMostrarUsuario($item, $valor){
+			$tabla="usuarios";
+			$respuesta=ModeloUsuarios::mdlMostrarUsuario($tabla, $item, $valor);
+			return $respuesta;//Retorna respuesta al archivo de ajax.usuarios.php
+		}
 	}
 

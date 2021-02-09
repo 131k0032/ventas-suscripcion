@@ -162,3 +162,53 @@ $('body').nitePreload({
 	
 	}
 });
+
+/*=============================================
+VALIDAR EMAIL REPETIDO
+=============================================*/
+// Capturamos el value del input hidden de plantilla.php
+var ruta = $("#ruta").val();
+
+// Tomamos el input con nombre registroEmail 
+// Al cambiar ejecuta una funcion
+$("input[name='registroEmail']").change(function(){
+	//Ruemueve el alert depues de cada cambio del input registroEmail
+	$(".alert").remove();
+	// Tomamos este valor que se coloque al momento
+	var email = $(this).val();
+	// console.log("email", email);
+
+	var datos = new FormData();
+	// Crando variable "validarEmail" de tipo post con el value email del input
+	// Se va a recibir con isset en url: ruta+"backoffice/ajax/usuarios.ajax.php",
+	datos.append("validarEmail", email);
+
+	$.ajax({
+
+		url: ruta+"backoffice/ajax/ajax.usuarios.php",
+		method: "POST",
+		data: datos,
+		cache:false,
+		contentType:false,
+		processData:false,
+		dataType:"json",
+		success:function(respuesta){
+			// console.log("respuesta", respuesta);
+			// Si encuenta coincidencias la respuesta devuelve en network>xhr o en consola un true o false
+			// Si viene true;
+			if (respuesta) {
+				// Setea el value a nada
+				$("input[name='registroEmail']").val("");
+				// Y grega la alerta antes del input
+				$("input[name='registroEmail']").before(`
+					<div class="alert alert-danger">
+						<strong>Uy </stron>Correo previamente registrado, pliz agrega otro 
+					</div>`)
+				return; //Para cancelar cualquier proceso js
+			}
+		
+		}
+
+	})
+
+})

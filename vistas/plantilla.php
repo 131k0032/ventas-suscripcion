@@ -108,8 +108,8 @@ if(isset($_GET["pagina"])){
 ?>
 
 
-
-
+<!-- Valor oculto que manda la ruta actual para vincular con script.js y ajax-->
+<input type="hidden" value="<?php echo $ruta; ?>" id="ruta">
 
 <!-- Script general -->
 <script src="js/script.js"></script>

@@ -149,5 +149,91 @@ class ControladorUsuarios{
 			$respuesta=ModeloUsuarios::mdlActualizarUsuario($tabla, $id, $item, $valor);
 			return $respuesta;//Retorna respuesta al archivo de ajax.usuarios.php
 		}
+
+
+		/*----------  Ingreso usuarios ----------*/
+		public function ctrIngresoUsuario(){
+			// Si el usuario llena el input con su email y pass CORRECTAMENTE
+			if (isset($_POST["ingresoEmail"])) {
+				if (preg_match('/^[^0-9][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z0-9]{2,4}$/', $_POST["ingresoEmail"]) && 
+				preg_match('/^[a-zA-Z0-9]+$/', $_POST["ingresoPassword"])) {
+
+				// Lanzamos la consutlta con estos parametros
+				$tabla="usuarios";
+				$item="email";//CAMPO
+				$valor=$_POST["ingresoEmail"];
+				$respuesta=ModeloUsuarios::mdlMostrarUsuario($tabla, $item, $valor);
+
+				// Si lo que se obtiene de la consulta es igual al email y al pass que ingresa el user
+				if($respuesta["email"]==$_POST["ingresoEmail"] && $respuesta["password"]==$_POST["ingresoPassword"]){
+
+						// Si esto coincide, comprobamos si el user ya verificado 0=no 1=si
+						if($respuesta["verificacion"]==0){
+							echo '<script>
+								swal({
+									type:"error",  
+									title: "¡Checa tu correo",
+									text: "¡Verifica tu cuenta de correo en tu bandeja!",
+									showConfirmButton: true,
+									confirmButtonText: "Cerrar"
+
+								}).then(function(result){
+
+									if(result.value){
+										history.back();
+									}
+								});	
+							</script>';
+							// Con return cancelamos todo lo que ocurra luego jeje
+							return;
+						// Si está verificado mandalo al backoffice
+						}else{
+							// Para redirigir al user
+							$ruta=ControladorRuta::ctrRuta();
+							echo '<script>
+								window.location="'.$ruta.'backoffice"
+							</script>';
+						}
+
+					// Si no es igual dile ps que no coinciden
+					}else{
+
+						echo '<script>
+							swal({
+								type:"error",  
+								title: "¡Email y pass no coinciden!",
+								text: "¡Escriba bien sus datos pliz nada coincide!",
+								showConfirmButton: true,
+								confirmButtonText: "Cerrar"
+
+							}).then(function(result){
+
+								if(result.value){
+									history.back();
+								}
+							});	
+						</script>';
+				}
+			// Si no lo llena CORRECTAMENTE o pone caracteres no permitidos
+			}else{
+				echo '<script>
+							swal({
+								type:"error",  
+								title: "¡CARACTERES ESPECIALES NO PERMITIDOS!",
+								text: "¡Escriba bien sus datos plis!",
+								showConfirmButton: true,
+								confirmButtonText: "Cerrar"
+
+							}).then(function(result){
+
+								if(result.value){
+									window.location = "'.$ruta.'registro";
+								}
+							});	
+						</script>';
+			}
+		}
+	
 	}
 
+}

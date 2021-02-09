@@ -13,7 +13,7 @@
         <img src="vistas/img/usuarios/default/default.png" class="img-circle elevation-2" alt="User Image">
       </div>
       <div class="info">
-        <a href="#" class="d-block"><?php echo $usuario["nombre"]; ?></a>
+        <a href="perfil" class="d-block"><?php echo $usuario["nombre"]; ?></a>
       </div>
     </div>
 

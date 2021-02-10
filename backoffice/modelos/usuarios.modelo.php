@@ -28,12 +28,23 @@ class ModeloUsuarios{
 
 	/*----------  MOSTRAR USUARIOS  ----------*/
 		static public function mdlMostrarUsuario ($tabla, $item, $valor){
-			$stmt=Conexion::conectar()->prepare("SELECT * FROM  $tabla WHERE $item = :$item");
-			$stmt->bindParam(":".$item, $valor, PDO::PARAM_STR);
-			$stmt->execute();
-			return $stmt->fetch();
+			// Si reciben parámetros
+			if ($item!=null && $valor!=null) {
+				$stmt=Conexion::conectar()->prepare("SELECT * FROM  $tabla WHERE $item = :$item");
+				$stmt->bindParam(":".$item, $valor, PDO::PARAM_STR);
+				$stmt->execute();
+				return $stmt->fetch();
+			// Si no reciben parámetros (se usa en usuarios.php) pues traete todo
+			}else{
+				$stmt=Conexion::conectar()->prepare("SELECT * FROM  $tabla");
+				$stmt->execute();
+				return $stmt->fetchAll();
+			}
+
 			$stmt->close();
 			$stmt=null;
+
+			
 		}
 
 

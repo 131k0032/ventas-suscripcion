@@ -42,12 +42,16 @@
                 <p>Mi perfil</p>
               </a>
             </li>
-             <li class="nav-item">
-              <a href="usuarios" class="nav-link">
-                <i class="nav-icon fas fa-users"></i>
-                <p>Usuarios</p>
-              </a>
-            </li>
+            <!-- variable $usuario viene de plantilla.php -->
+            <?php if($usuario["perfil"]=="admin"): ?>
+               <li class="nav-item">
+                <a href="usuarios" class="nav-link">
+                  <i class="nav-icon fas fa-users"></i>
+                  <p>Usuarios</p>
+                </a>
+              </li>
+            <?php endif ?>
+
             <li class="nav-item has-treeview">
               <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-graduation-cap"></i>

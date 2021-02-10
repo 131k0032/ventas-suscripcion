@@ -17,14 +17,16 @@ class ControladorUsuarios{
 			if (preg_match('/^[a-zA-ZáéíóúÁÉÍÓÚ ]+$/', $_POST["registroNombre"]) &&
 				preg_match('/^[^0-9][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z0-9]{2,4}$/', $_POST["registroEmail"]) && 
 				preg_match('/^[a-zA-Z0-9]+$/', $_POST["registroPassword"])) {
-				
+
+				//Encriptandopassword
+				$encriptar = crypt($_POST['registroPassword'], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
 				$emailEncriptado=md5($_POST["registroEmail"]);
 				$tabla="usuarios";
 				$datos=array(
 							"perfil"=>"usuario",
 							"nombre"=>$_POST["registroNombre"],
 							"email"=>$_POST["registroEmail"],
-							"password"=>$_POST["registroPassword"],
+							"password"=>$encriptar,
 							"suscripcion"=>0,
 							"verificacion"=>0,
 							"email_encriptado"=>$emailEncriptado,
@@ -158,6 +160,8 @@ class ControladorUsuarios{
 				if (preg_match('/^[^0-9][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z0-9]{2,4}$/', $_POST["ingresoEmail"]) && 
 				preg_match('/^[a-zA-Z0-9]+$/', $_POST["ingresoPassword"])) {
 
+				//Encriptandopassword
+				$encriptar = crypt($_POST['ingresoPassword'], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
 				// Lanzamos la consutlta con estos parametros
 				$tabla="usuarios";
 				$item="email";//CAMPO
@@ -165,7 +169,7 @@ class ControladorUsuarios{
 				$respuesta=ModeloUsuarios::mdlMostrarUsuario($tabla, $item, $valor);
 
 				// Si lo que se obtiene de la consulta es igual al email y al pass que ingresa el user
-				if($respuesta["email"]==$_POST["ingresoEmail"] && $respuesta["password"]==$_POST["ingresoPassword"]){
+				if($respuesta["email"]==$_POST["ingresoEmail"] && $respuesta["password"]==$encriptar){
 
 						// Si esto coincide, comprobamos si el user ya verificado 0=no 1=si
 						if($respuesta["verificacion"]==0){
@@ -364,30 +368,47 @@ class ControladorUsuarios{
 	/*----------  CAMBIAR PASSWORD  ----------*/
 	public function ctrCambiarPassword(){
 		if (isset($_POST["idUsuarioPassword"])) {
-			
-			$tabla = "usuarios";
-			$id = $_POST["idUsuarioPassword"];
-			$item = "password";//Campo de bd
-			$valor = $_POST["editarPassword"]; //viene de info-usuario.php
+			if (preg_match('/^[a-zA-Z0-9]+$/', $_POST["editarPassword"])){
 
-			$respuesta = ModeloUsuarios::mdlActualizarUsuario($tabla, $id, $item, $valor);
-			if($respuesta == "ok"){
+				$tabla = "usuarios";
+				$id = $_POST["idUsuarioPassword"];
+				$item = "password";//Campo de bd
+				$encriptar = crypt($_POST['editarPassword'], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
+				$valor = $encriptar; //viene de info-usuario.php
 
+				$respuesta = ModeloUsuarios::mdlActualizarUsuario($tabla, $id, $item, $valor);
+				if($respuesta == "ok"){
+
+					echo '<script>
+						swal({
+							type:"success",
+						  	title: "¡CORRECTO!",
+						  	text: "¡La contraseña ha sido actualizada!",
+						  	showConfirmButton: true,
+							confirmButtonText: "Cerrar"					  
+						}).then(function(result){
+							if(result.value){   
+							    history.back();
+							  } 
+						});
+					</script>';
+
+
+					}
+			}else{
 				echo '<script>
-					swal({
-						type:"success",
-					  	title: "¡CORRECTO!",
-					  	text: "¡La contraseña ha sido actualizada!",
-					  	showConfirmButton: true,
-						confirmButtonText: "Cerrar"					  
-					}).then(function(result){
-						if(result.value){   
-						    history.back();
-						  } 
-					});
-				</script>';
-
-
+						swal({
+							type:"error",
+						  	title: "Incorrecto!",
+						  	text: "¡Caracteries especiales no permitidos!",
+						  	showConfirmButton: true,
+							confirmButtonText: "Cerrar"					  
+						}).then(function(result){
+							if(result.value){   
+							    history.back();
+							  } 
+						});
+					</script>';
 			}
 
 		}

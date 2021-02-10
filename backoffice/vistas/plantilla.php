@@ -50,6 +50,9 @@ $usuario=ControladorUsuarios::ctrMostrarUsuario($item, $valor);
 	<link rel="stylesheet" href="vistas/css/plugins/select2.min.css">
   	<!-- Estilos personalizados -->
   	<link rel="stylesheet" href="vistas/css/style.css">
+  	<!-- DataTables -->
+	<link rel="stylesheet" href="vistas/css/plugins/dataTables.bootstrap4.min.css">	
+	<link rel="stylesheet" href="vistas/css/plugins/responsive.bootstrap.min.css">
 	<!--====  End of vinculos css  ====-->
 
 	<!--========================
@@ -78,6 +81,12 @@ $usuario=ControladorUsuarios::ctrMostrarUsuario($item, $valor);
 	<script src="vistas/js/plugins/jSignature.CompressorSVG.js"></script>
 	<!-- Sweetalert -->
 	<script src="vistas/js/plugins/sweetalert2.all.js"></script>
+		<!-- DataTables 
+	https://datatables.net/-->
+  	<script src="vistas/js/plugins/jquery.dataTables.min.js"></script>
+  	<script src="vistas/js/plugins/dataTables.bootstrap4.min.js"></script> 
+	<script src="vistas/js/plugins/dataTables.responsive.min.js"></script>
+  	<script src="vistas/js/plugins/responsive.bootstrap.min.js"></script>	
 	<!--====  End of JS  ====-->
 
 </head>	

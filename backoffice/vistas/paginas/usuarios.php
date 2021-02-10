@@ -51,7 +51,7 @@
           </div>
         </div>
         <div class="card-body">
-          <table class="table table-striped">
+          <table class="table table-striped table-bordered dt-responsive tablaUsuarios">
               <thead>
                 <tr>
                   <th>#</th>
@@ -74,6 +74,7 @@
                      <tr>
                         <td><?php echo($key+1) ?></td>
                         <td><img src="<?php echo $value["foto"]; ?>" class="img-fluid" width="30px"></td>
+                        <td><?php echo $value["nombre"]; ?></td>
                         <td><?php echo $value["email"]; ?></td>
                         <td><?php echo $value["pais"]; ?></td>
                         <td><?php echo $value["suscripcion"]; ?></td>

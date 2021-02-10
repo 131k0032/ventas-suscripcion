@@ -24,7 +24,8 @@
 				</p>
 				<div class="text-center">
 					<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#cambiarFoto"> Cambiar foto</button>
-					<button class="btn btn-purple btn-sm"> Cambiar contraseña</button>
+					<button class="btn btn-purple btn-sm" data-toggle="modal" data-target="#cambiarPassword"> Cambiar contraseña</button>
+
 				</div>	
 		</div>
 
@@ -76,6 +77,55 @@ CAMBIAR FOTO DE PERFIL
 	      <?php 
 	      	$cambiarImagen= new ControladorUsuarios();
 	      	$cambiarImagen->ctrCambiarFotoPerfil();
+	      	// var_dump($cambiarImagen);
+	       ?>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!--===================================
+CAMBIAR PASS
+====================================-->
+<!-- The Modal -->
+<div class="modal" id="cambiarPassword">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <form method="post">
+      	<!-- Modal Header -->
+	      <div class="modal-header">
+	        <h4 class="modal-title">Cambiar contraseña</h4>
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	      </div>
+
+	      <!-- Modal body -->
+	      <div class="modal-body">
+	      	<!-- id de usuario en modo oculto -->
+	      	<input type="hidden" name="idUsuarioPassword" value="<?php echo $usuario["id"]; ?>">
+	      	
+
+	        <div class="form-group">
+	        	<input type="password" class="form-control-file border" name="editarPassword" required>
+	        </div>
+	      </div>
+
+	      <!-- Modal footer -->
+	      <div class="modal-footer d-flex justify-content-between">
+	      	<div>
+	        	<button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+	        </div>
+	        <div>
+	        	<button type="submit" class="btn btn-primary">Enviar</button>
+	        </div>
+	      </div>
+
+	      <?php 
+	      	$cambiarPassword= new ControladorUsuarios();
+	      	$cambiarPassword->ctrCambiarPassword();
 	      	// var_dump($cambiarImagen);
 	       ?>
       </form>

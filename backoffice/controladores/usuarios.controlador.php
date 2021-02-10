@@ -359,4 +359,41 @@ class ControladorUsuarios{
 
 	}
 
+
+
+	/*----------  CAMBIAR PASSWORD  ----------*/
+	public function ctrCambiarPassword(){
+		if (isset($_POST["idUsuarioPassword"])) {
+			
+			$tabla = "usuarios";
+			$id = $_POST["idUsuarioPassword"];
+			$item = "password";//Campo de bd
+			$valor = $_POST["editarPassword"]; //viene de info-usuario.php
+
+			$respuesta = ModeloUsuarios::mdlActualizarUsuario($tabla, $id, $item, $valor);
+			if($respuesta == "ok"){
+
+				echo '<script>
+					swal({
+						type:"success",
+					  	title: "¡CORRECTO!",
+					  	text: "¡La contraseña ha sido actualizada!",
+					  	showConfirmButton: true,
+						confirmButtonText: "Cerrar"					  
+					}).then(function(result){
+						if(result.value){   
+						    history.back();
+						  } 
+					});
+				</script>';
+
+
+			}
+
+		}
+
+	}
+
+
+
 }

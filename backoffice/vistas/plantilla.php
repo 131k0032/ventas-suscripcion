@@ -76,6 +76,8 @@ $usuario=ControladorUsuarios::ctrMostrarUsuario($item, $valor);
 	<!-- jSignature -->
 	<script src="vistas/js/plugins/jSignature.js"></script>
 	<script src="vistas/js/plugins/jSignature.CompressorSVG.js"></script>
+	<!-- Sweetalert -->
+	<script src="vistas/js/plugins/sweetalert2.all.js"></script>
 	<!--====  End of JS  ====-->
 
 </head>	

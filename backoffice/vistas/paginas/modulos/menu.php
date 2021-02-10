@@ -10,7 +10,17 @@
     <!-- Sidebar user panel (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
-        <img src="vistas/img/usuarios/default/default.png" class="img-circle elevation-2" alt="User Image">
+        <!-- Si no hay nada en foto pon el default -->
+        <?php if ($usuario["foto"] == ""): ?>
+
+          <img class="profile-user-img img-fluid img-circle" src="vistas/img/usuarios/default/default.png">
+
+        <?php else: ?>
+          <!-- Si ya tiene otra foto -->
+
+          <img class="profile-user-img img-fluid img-circle" src="<?php echo $usuario["foto"] ?>">
+          
+        <?php endif ?>
       </div>
       <div class="info">
         <a href="perfil" class="d-block"><?php echo $usuario["nombre"]; ?></a>

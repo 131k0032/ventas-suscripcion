@@ -240,4 +240,123 @@ class ControladorUsuarios{
 	
 	}
 
+	/*----------  CAMBIAR FOTO DE PERFIL  ----------*/
+	public function ctrCambiarFotoPerfil(){
+		// Ve si viene por post  del modal info-usuario.php
+		if(isset($_POST["idUsuarioFoto"])){
+			// tomamos la ruta actual de la foto este es un input hidden
+			$ruta = $_POST["fotoActual"];
+			// Si existe la imagen y no está vacia 
+			if(isset($_FILES["cambiarImagen"]["tmp_name"]) && !empty($_FILES["cambiarImagen"]["tmp_name"])){
+				// obtenemos el alto y ancho
+				list($ancho, $alto) = getimagesize($_FILES["cambiarImagen"]["tmp_name"]);
+				// Establecemmos un nuevo alto y ancho
+				$nuevoAncho = 500;
+				$nuevoAlto = 500;
+
+				/*=============================================
+				CREAMOS EL DIRECTORIO DONDE VAMOS A GUARDAR LA FOTO DEL USUARIO
+				=============================================*/
+
+				$directorio = "vistas/img/usuarios/".$_POST["idUsuarioFoto"];
+
+				/*=============================================
+				PRIMERO PREGUNTAMOS SI EXISTE OTRA IMAGEN EN LA BD Y EL CARPETA
+				=============================================*/
+				// Si lo que viene de post ruta es diferente de vacio
+				if($ruta != ""){
+					// Borramos
+					unlink($ruta);
+				}else{
+					// Si no esxte el directorio creado
+					if(!file_exists($directorio)){	
+						// Lo creamos
+						mkdir($directorio, 0755);
+					}
+				}
+
+				/*=============================================
+				DE ACUERDO AL TIPO DE IMAGEN APLICAMOS LAS FUNCIONES POR DEFECTO DE PHP
+				=============================================*/
+				// Si es tipo jpeg
+				if($_FILES["cambiarImagen"]["type"] == "image/jpeg"){
+					// Genramos numeros aleatorios
+					$aleatorio = mt_rand(100,999);
+					// ponemos la ruta donde se va a guardar
+					$ruta = $directorio."/".$aleatorio.".jpg";
+					// de donde viene la img
+					$origen = imagecreatefromjpeg($_FILES["cambiarImagen"]["tmp_name"]);
+					// donde guarar y como
+					$destino = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
+					// redimensionamos
+					imagecopyresized($destino, $origen, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
+					// guardamos
+					imagejpeg($destino, $ruta);	
+
+
+				}else if($_FILES["cambiarImagen"]["type"] == "image/png"){
+					$aleatorio = mt_rand(100,999);
+					$ruta = $directorio."/".$aleatorio.".png";
+					$origen = imagecreatefrompng($_FILES["cambiarImagen"]["tmp_name"]);	
+					$destino = imagecreatetruecolor($nuevoAncho, $nuevoAlto);	
+					imagealphablending($destino, FALSE);
+					imagesavealpha($destino, TRUE);		
+					imagecopyresized($destino, $origen, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);		
+					imagepng($destino, $ruta);
+
+				}else{
+					// Si no es de tipo imagen el archivo
+					echo'<script>
+
+						swal({
+								type:"error",
+							  	title: "¡CORREGIR!",
+							  	text: "¡No se permiten formatos diferentes a JPG y/o PNG!",
+							  	showConfirmButton: true,
+								confirmButtonText: "Cerrar"
+							  
+						}).then(function(result){
+
+								if(result.value){   
+								    history.back();
+								  } 
+						});
+
+					</script>';
+
+				}
+			
+			}
+
+			// final condicion
+
+			$tabla = "usuarios";
+			$id = $_POST["idUsuarioFoto"];
+			$item = "foto";
+			$valor = $ruta;
+
+			$respuesta = ModeloUsuarios::mdlActualizarUsuario($tabla, $id, $item, $valor);
+			if($respuesta == "ok"){
+
+				echo '<script>
+					swal({
+						type:"success",
+					  	title: "¡CORRECTO!",
+					  	text: "¡La foto de perfil ha sido actualizada!",
+					  	showConfirmButton: true,
+						confirmButtonText: "Cerrar"					  
+					}).then(function(result){
+						if(result.value){   
+						    history.back();
+						  } 
+					});
+				</script>';
+
+
+			}
+
+		}
+
+	}
+
 }

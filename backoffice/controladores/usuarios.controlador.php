@@ -416,5 +416,158 @@ class ControladorUsuarios{
 	}
 
 
+	/*----------  RECUPERAR PASS  ----------*/
+	public function ctrRecuperarPassword(){
+		// Si viene por port emailRecuperarPassword
+		if (isset($_POST["emailRecuperarPassword"])) {
+				// Validamos con preg_match
+				if (preg_match('/^[^0-9][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z0-9]{2,4}$/', $_POST["emailRecuperarPassword"])) {
+
+				// Generar pass aleatorio
+					function generarPassword($longitud){
+						// La iniciamos vacía
+						$password="";
+						$patron="1234567890abcdefghijklmnopqrstuvwzyz";
+						$max=strlen($patron)-1;
+
+						for ($i=0; $i <$longitud ; $i++) { 
+							$password .= $patron{mt_rand(0,$max)};
+						}
+						return $password;
+					}
+					// Genera un pass de tamaño 11
+					$nuevoPassword=generarPassword(11);
+					$encriptar = crypt($nuevoPassword, '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
+
+					// Consultamos si existe el email en bd
+					$tabla="usuarios";
+					$item="email";
+					$valor=$_POST["emailRecuperarPassword"];
+
+					$traerUsuario=ModeloUsuarios::mdlMostrarUsuario($tabla, $item, $valor);
+					
+					// Si existe el user con ese email
+					if ($traerUsuario) {
+
+						$tabla="usuarios";
+						$id=$traerUsuario["id"];
+						$item="password";
+						$valor=$encriptar;
+
+						$actualizarPassword=ModeloUsuarios::mdlActualizarUsuario($tabla, $id, $item, $valor);
+
+							// Si se actualiza
+							if($actualizarPassword=="ok"){
+								// Enviando email
+								// Para redirigir al user
+								$ruta=ControladorRuta::ctrRuta();
+								date_default_timezone_set("America/Cancun");//Zona hooraria en al que se manda el correo
+								$mail = new PHPmailer;
+								$mail->CharSet = 'UTF-8';
+								$mail->isMail();
+								$mail->setFrom('masterchief22010@hotmail.com','La mera reata jeje'); //De donde se envia la info
+								$mail->addReplyTo('masterchief22010@hotmail.com','La mera reata jeje');//Por si necesitan responder
+								$mail->Subject = "Solicitud de nueva contraseña";
+								$mail->addAddress($traerUsuario["email"]);// a quien se envia el correo
+								$mail->msgHTML('
+									<div style="width:100%; background:#eee; position:relative; font-family:sans-serif; padding-bottom:40px">
+											<center>												
+												<img style="padding:20px; width:10%" src="https://tutorialesatualcance.com/tienda/logo.png">
+											</center>
+											<div style="position:relative; margin:auto; width:600px; background:white; padding:20px">
+												<center>												
+												<img style="padding:20px; width:15%" src="https://tutorialesatualcance.com/tienda/icon-pass.png">
+												<h3 style="font-weight:100; color:#999">SOLICITUD DE NUEVA CONTRASEÑA</h3>
+												<hr style="border:1px solid #ccc; width:80%">
+												<h4 style="font-weight:100; color:#999; padding:0 20px"><strong>Su nueva contraseña: </strong>'.$nuevoPassword.'</h4>
+												<a href="'.$ruta.'ingreso" target="_blank" style="text-decoration:none">
+												<div style="line-height:30px; background:#0aa; width:60%; padding:20px; color:white">		
+													Haz click aquí
+												</div>
+												</a>
+												<h4 style="font-weight:100; color:#999; padding:0 20px">Ingrese nuevamente al sitio con esta contraseña y recuerde cambiarla en el panel de perfil de usuario</h4>
+												<br>
+												<hr style="border:1px solid #ccc; width:80%">
+												<h5 style="font-weight:100; color:#999">Si no se inscribió en esta cuenta, puede ignorar este correo electrónico y la cuenta se eliminará.</h5>
+												</center>
+											</div>
+										</div>');
+
+								$envio=$mail->Send();
+								// Si no se envia
+								if(!$envio){
+									echo '<script>
+									swal({
+										type:"error",  
+										title: "¡No se ha podido enviar el correo a '.$traerUsuario["email"].' '.$mail->ErrorInfo.' intenta nuevamente ",
+										text: "¡Escriba bien sus datos plis!",
+										showConfirmButton: true,
+										confirmButtonText: "Cerrar"
+
+									}).then(function(result){
+
+										if(result.value){
+											history.back();
+										}
+									});	
+								</script>';
+								}else{
+									echo '<script>
+									swal({
+										type:"success",
+										title: "¡SU NUEVA CONTRASEÑA HA SIDO CREADA CORRECTAMENTE!",
+										text: "¡Por favor revise la bandeja de entrada o la carpeta SPAM de su correo electrónico para verificar ver su nueva contraseña!",
+										showConfirmButton: true,
+										confirmButtonText: "Cerrar"
+									}).then(function(result){
+
+										if(result.value){
+											window.location = "'.$ruta.'ingreso";
+										}
+									});	
+								</script>';							
+								}
+
+							}
+
+						// Si no existe	
+						}else{
+							echo '<script>
+							swal({
+								type:"error",
+							  	title: "Error!",
+							  	text: "Email inexistente en el sistema",
+							  	showConfirmButton: true,
+								confirmButtonText: "Cerrar"					  
+							}).then(function(result){
+								if(result.value){   
+								    history.back();
+								  } 
+							});
+						</script>';
+					}
+
+
+				// Sino mandar el error
+				}else{
+					echo '<script>
+							swal({
+								type:"error",
+							  	title: "Incorrecto!",
+							  	text: "¡Caracteries especiales no permitidos!",
+							  	showConfirmButton: true,
+								confirmButtonText: "Cerrar"					  
+							}).then(function(result){
+								if(result.value){   
+								    history.back();
+								  } 
+							});
+						</script>';
+				}
+		}
+
+	}
+
+
 
 }

@@ -130,7 +130,21 @@ $(".suscribirse").click(function (){
 })
 
 /*----------  INICIANDO DATA TABLES  ----------*/
+$.ajax({
+	url:"ajax/tabla-usuarios.ajax.php",
+	success:function(respuesta){
+		console.log("respuesta", respuesta);
+
+	}
+})
+
 $(".tablaUsuarios").DataTable({
+	// Con esta linea de codigo jalamos los datos json de tabla-usuarios.php
+	"ajax":"ajax/tabla-usuarios.ajax.php",
+	// Mas propiedades de velocidad de ejecucion
+	"deferRender": true,
+  	"retrieve": true,
+  	"processing": true,
 	// Traduciendo al espanish
 	"language": {
 

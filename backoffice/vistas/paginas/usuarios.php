@@ -12,9 +12,9 @@
   return;
 }
 // Como necesito a todos pongo parametros null
-  $item=null;
-  $valor=null;
-  $usuarios=ControladorUsuarios::ctrMostrarUsuario($item, $valor);
+  // $item=null;
+  // $valor=null;
+  // $usuarios=ControladorUsuarios::ctrMostrarUsuario($item, $valor);
   // echo '<pre>'; print_r($usuarios); echo '</pre>';
  ?>
 <div class="content-wrapper" style="min-height: 1059.55px;">
@@ -70,9 +70,9 @@
                 </tr>
               </thead>
               <tbody>
-                <?php foreach($usuarios as $key => $value): ?>
+               <!--  <?php foreach($usuarios as $key => $value): ?>
                      <tr>
-                        <!-- <td><?php echo($key+1) ?></td>
+                        <td><?php echo($key+1) ?></td>
                         <td><img src="<?php echo $value["foto"]; ?>" class="img-fluid" width="30px"></td>
                         <td><?php echo $value["nombre"]; ?></td>
                         <td><?php echo $value["email"]; ?></td>
@@ -84,9 +84,9 @@
                         <td><?php echo $value["patrocinador"]; ?></td>
                         <td><?php echo $value["paypal"]; ?></td>
                         <td><?php echo $value["fecha"]; ?></td>
-                        <td><?php echo $value["vencimiento"]; ?></td> -->
+                        <td><?php echo $value["vencimiento"]; ?></td> 
                     </tr>
-                <?php endforeach ?>
+                <?php endforeach ?> -->
                
               </tbody>
             </table>

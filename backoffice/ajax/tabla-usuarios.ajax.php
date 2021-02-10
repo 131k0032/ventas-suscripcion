@@ -9,7 +9,7 @@
 
     public function mostrarTabla(){
       // Como necesito a todos pongo parametros null
-      // NOta que estas variables se usan de igual forma en usuarios.php
+      // NOta que estas variables se usan de igual forma en usuarios.php, aunque no es necesario, si queres puedes comentarlos ahí
       $item=null;
       $valor=null;
       $usuarios=ControladorUsuarios::ctrMostrarUsuario($item, $valor);
@@ -28,13 +28,39 @@
   
         // Recorremos los elementos
         foreach ($usuarios as $key => $value) {
+          
+          // No muestra al admin
+          if($value["perfil"] != "admin"){
+
+
+          /*----------  Si trae foto  ----------*/
+           if($value["foto"] == ""){
+            // Tener cuidado con las comillas simples
+            $foto = "<img src='vistas/img/usuarios/default/default.png' class='img-fluid rounded-circle' width='30px'>";
+            }else{
+
+            $foto = "<img src='".$value["foto"]."' class='img-fluid rounded-circle' width='30px'>";
+
+          }
+
+          /*----------  Mostrar si está suscrito  ----------*/
+            if($value["suscripcion"] == 0){
+
+              $suscripcion = "<button type='button' class='btn btn-danger btn-sm'>Desactivada</button>";
+
+             }else{
+
+              $suscripcion = "<button type='button' class='btn btn-success btn-sm'>Activada</button>";
+            }
+
+          // Contenido de datos JSON
           $datosJson.='[
-                "'.($key+1).'",
-                "'.$value["foto"].'",
+                "'.($key+0).'",
+                "'.$foto.'",
                 "'.$value["nombre"].'",
                 "'.$value["email"].'",
                 "'.$value["pais"].'",
-                "'.$value["suscripcion"].'",
+                "'.$suscripcion.'",
                 "'.$value["id_suscripcion"].'",
                 "'.$value["ciclo_pago"].'",
                 "'.$value["enlace_afiliado"].'",
@@ -45,13 +71,15 @@
           ],';
         }
 
+      }
+
       // Borra la coma del ultimo dato json, osea la coma esta jeje (],'')
       $datosJson=substr($datosJson,0, -1);
 
       // Finaliza sintaxis datos json
       $datosJson.=']}';
 
-
+      // muestra los datos json en usuarios.php
       echo $datosJson;
 
     }//Cierre metodo

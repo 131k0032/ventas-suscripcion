@@ -130,6 +130,7 @@ $(".suscribirse").click(function (){
 })
 
 /*----------  INICIANDO DATA TABLES  ----------*/
+// Esto es solo para ver que tabla-usuarios.ajax.php se conectó correctamente
 $.ajax({
 	url:"ajax/tabla-usuarios.ajax.php",
 	success:function(respuesta){
@@ -140,11 +141,11 @@ $.ajax({
 
 $(".tablaUsuarios").DataTable({
 	// Con esta linea de codigo jalamos los datos json de tabla-usuarios.php
-	"ajax":"ajax/tabla-usuarios.ajax.php",
+	"ajax":"ajax/tabla-usuarios.ajax.php", //Puedes comentar esta linea
 	// Mas propiedades de velocidad de ejecucion
-	"deferRender": true,
-  	"retrieve": true,
-  	"processing": true,
+	"deferRender": true, //Tambien comentar esta
+  	"retrieve": true, //Comentar esta
+  	"processing": true, //Comentar esta por si no quieres manejarlo con datos json,da lo mismo si los recorres directo en usuarios.php que en tabla.usuarios.ajax.php
 	// Traduciendo al espanish
 	"language": {
 

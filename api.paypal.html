@@ -90,3 +90,51 @@ CREANDO PRODUCTOS EN PAYPAL
 		}'
 5. Enviar
 6. Seleccionar code y copiar el PHP-cURl generado
+
+<!--======================
+FORMAS DE PAGO EN API DE PAYPAL
+=======================-->
+1. Ir a hhttps://developer.paypal.com/docs/api/subscriptions/v1/#plans_create 
+2. En postman pegar https://api-m.sandbox.paypal.com/v1/billing/plans y sera de tipo post y noAuth en autoriation
+3. En la seccion headers colocar:
+		"key"       : "values"
+	-H "Content-Type: application/json" 
+	Recuerda que aqui se pone el Bearer espacion y tu access_token
+	-H "Authorization: Bearer <Access-Token>"
+	Esto va en el body de postman (en formato raw) si las comillas simples, recuerda gambiar el product_id por el que genera la consola de ulitmo
+			{
+			  "product_id": "PROD-5KD87308KP738180V",
+			  "name": "Suscripcion mensual a Academyoflife",
+			  "description": "Plan de pago mensual a Academyoflife",
+			  "status": "ACTIVE",
+			  "billing_cycles": [
+			    {
+			      "frequency": {
+			        "interval_unit": "MONTH",
+			        "interval_count": 1
+			      },
+			      "tenure_type": "REGULAR",
+			      "sequence": 1,
+			      "total_cycles": 99,
+			      "pricing_scheme": {
+			        "fixed_price": {
+			          "value": "10",
+			          "currency_code": "USD"
+			        }
+			      }
+			    }
+			  ],
+			  "payment_preferences": {
+			    "auto_bill_outstanding": true,
+			    "setup_fee": {
+			      "value": "10",
+			      "currency_code": "USD"
+			    },
+			    "setup_fee_failure_action": "CONTINUE",
+			    "payment_failure_threshold": 3
+			  },
+			  "taxes": {
+			    "percentage": "0",
+			    "inclusive": false
+			  }
+			}

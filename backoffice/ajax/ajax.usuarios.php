@@ -23,6 +23,7 @@ class AjaxUsuarios{
 	public function ajaxSuscripcion(){
 
 		$ruta =ControladorGeneral::ctrRuta();
+		$valorSuscripcion =ControladorGeneral::ctrValorSuscripcion();
 		// echo "Hola";
 
 		/**** para crear el access_token****/
@@ -57,7 +58,7 @@ class AjaxUsuarios{
 			// Almacenando el access_token en una variable
 			$token=$respuesta1["access_token"];
 			// Mostrando el token en console.log () de usuarios.js
-			// echo $token;
+			 // echo $token;
 
 			/****Creando el producto(es necesarrio el token)****/
 			
@@ -96,8 +97,77 @@ class AjaxUsuarios{
 				$respuesta2= json_decode($response, true);
 				// echo $respuesta2["id"];
 				$idProducto=$respuesta2["id"];
-				
-				echo $idProducto;
+
+				// echo $idProducto;
+
+				/***Creando el plan de pagos***/
+					  $curl3 = curl_init();
+
+					  curl_setopt_array($curl3, array(
+					  CURLOPT_URL => 'https://api-m.sandbox.paypal.com/v1/billing/plans',
+					  CURLOPT_RETURNTRANSFER => true,
+					  CURLOPT_ENCODING => '',
+					  CURLOPT_MAXREDIRS => 10,
+					  CURLOPT_TIMEOUT => 0,
+					  CURLOPT_FOLLOWLOCATION => true,
+					  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+					  CURLOPT_CUSTOMREQUEST => 'POST',
+					  CURLOPT_POSTFIELDS =>'{
+					  "product_id": "'.$idProducto.'",
+					  "name": "Suscripcion mensual a Academyoflife",
+					  "description": "Plan de pago mensual a Academyoflife",
+					  "status": "ACTIVE",
+					  "billing_cycles": [
+					    {
+					      "frequency": {
+					        "interval_unit": "MONTH",
+					        "interval_count": 1
+					      },
+					      "tenure_type": "REGULAR",
+					      "sequence": 1,
+					      "total_cycles": 99,
+					      "pricing_scheme": {
+					        "fixed_price": {
+					          "value": "'.$valorSuscripcion.'",
+					          "currency_code": "USD"
+					        }
+					      }
+					    }
+					  ],
+					  "payment_preferences": {
+					    "auto_bill_outstanding": true,
+					    "setup_fee": {
+					      "value": "'.$valorSuscripcion.'",
+					      "currency_code": "USD"
+					    },
+					    "setup_fee_failure_action": "CONTINUE",
+					    "payment_failure_threshold": 3
+					  },
+					  "taxes": {
+					    "percentage": "0",
+					    "inclusive": false
+					  }
+					}',
+					  CURLOPT_HTTPHEADER => array(
+					    'Content-Type: application/json',
+					  'Authorization: Bearer '.$token.''
+					  ),
+					));
+
+					$response = curl_exec($curl3);
+					curl_close($curl3);
+
+					if ($err) {
+						echo "cURL Error# :" .$err;
+						}else{
+						// echo $response;
+							// echo $response;
+							$respuesta3= json_decode($response, true);
+							// echo $respuesta2["id"];
+							$idPlan=$respuesta3["id"];
+							echo $idPlan;
+					}
+					
 
 			}
 		

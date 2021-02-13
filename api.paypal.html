@@ -68,3 +68,25 @@ CREANDO API DE PAYPAL EN MODO PRUEBA (GENERANDO KeyID, Secret y access_token)
 		curl_close($curl);
 		echo $response;
 
+<!--======================
+CREANDO PRODUCTOS EN PAYPAL
+=======================-->
+1. Ir a https://developer.paypal.com/docs/api/catalog-products/v1/
+2. Copiar el enlace https://api-m.sandbox.paypal.com/v1/catalogs/products y pegar en postman en tipo POST
+3. En la opcion Authorization poner NoAuth
+4. En postman en la seccion headers colocar:
+		"key"       : "values"
+	-H "Content-Type: application/json" 
+	Recuerda que aqui se pone el Bearer espacion y tu access_token
+	-H "Authorization: Bearer <Access-Token>"
+	Esto va en el body de postman (en formato raw) si las comillas simples
+		-d '{
+		  "name": "Academy of life",
+		  "description": "Educacion en linea",
+		  "type": "DIGITAL",
+		  "category": "EDUCATIONAL_AND_TEXTBOOKS",
+		  "image_url": "https://example.com/streaming.jpg",
+		  "home_url": "https://example.com/home"
+		}'
+5. Enviar
+6. Seleccionar code y copiar el PHP-cURl generado

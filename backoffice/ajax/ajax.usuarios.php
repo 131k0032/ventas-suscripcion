@@ -2,6 +2,8 @@
  // Llamndo controladores y modelos de usuarios
  require_once "../controladores/usuarios.controlador.php";
  require_once "../modelos/usuarios.modelo.php";
+ // Controlador de rutas
+ require_once "../controladores/general.controlador.php";
 
 class AjaxUsuarios{
 	/*----------  Vlidar email existente  ----------*/
@@ -19,10 +21,14 @@ class AjaxUsuarios{
 	public $sucripcion;
 
 	public function ajaxSuscripcion(){
-		// echo "Hola";
-		$curl = curl_init();
 
-		curl_setopt_array($curl, array(
+		$ruta =ControladorGeneral::ctrRuta();
+		// echo "Hola";
+
+		/**** para crear el access_token****/
+		$curl1 = curl_init();
+
+		curl_setopt_array($curl1, array(
 		  CURLOPT_URL => 'https://api-m.sandbox.paypal.com/v1/oauth2/token',
 		  CURLOPT_RETURNTRANSFER => true,
 		  CURLOPT_ENCODING => '',
@@ -38,20 +44,65 @@ class AjaxUsuarios{
 		  ),
 		));
 
-		$response = curl_exec($curl);
-		$err=curl_error($curl);
-		curl_close($curl);
+		$response = curl_exec($curl1);
+		$err=curl_error($curl1);
+		curl_close($curl1);
 
 		if ($err) {
 			echo "cURL Error# :" .$err;
 		}else{
 			// echo $response;
 			// Muestra valores json y con true captura propiedades
-			$respuesta= json_decode($response, true);
+			$respuesta1= json_decode($response, true);
 			// Almacenando el access_token en una variable
-			$token=$respuesta["access_token"];
+			$token=$respuesta1["access_token"];
 			// Mostrando el token en console.log () de usuarios.js
-			echo $token;
+			// echo $token;
+
+			/****Creando el producto(es necesarrio el token)****/
+			
+			$curl2 = curl_init();
+
+			curl_setopt_array($curl2, array(
+			  CURLOPT_URL => 'https://api-m.sandbox.paypal.com/v1/catalogs/products',
+			  CURLOPT_RETURNTRANSFER => true,
+			  CURLOPT_ENCODING => '',
+			  CURLOPT_MAXREDIRS => 10,
+			  CURLOPT_TIMEOUT => 0,
+			  CURLOPT_FOLLOWLOCATION => true,
+			  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+			  CURLOPT_CUSTOMREQUEST => 'POST',
+			  CURLOPT_POSTFIELDS =>'{
+					  "name": "Academy of life",
+					  "description": "Educacion en linea",
+					  "type": "DIGITAL",
+					  "category": "EDUCATIONAL_AND_TEXTBOOKS",
+					  "image_url": "'.$ruta.'backoffice/vistas/img/plantilla/icono.png",
+					  "home_url": "'.$ruta.'"
+					}',
+			  CURLOPT_HTTPHEADER => array(
+			    'Content-Type: application/json',
+			    'Authorization: Bearer '.$token.''
+			  ),
+			));
+
+			$response = curl_exec($curl2);
+			curl_close($curl2);
+			
+			if ($err) {
+				echo "cURL Error# :" .$err;
+			}else{
+				// echo $response;
+				$respuesta2= json_decode($response, true);
+				// echo $respuesta2["id"];
+				$idProducto=$respuesta2["id"];
+				
+				echo $idProducto;
+
+			}
+		
+
+
 		}	
 
 	}

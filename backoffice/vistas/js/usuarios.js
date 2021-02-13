@@ -137,6 +137,7 @@ $(".suscribirse").click(function (){
 				cache:false,
 				contentType:false,
 				processData:false,
+				//dataType:"json", //evita el error array to string conversion usando el echo $respuesta2; y no echo $respuesta2["id"];
 				success:function(respuesta){
 					console.log("respuesta", respuesta);
 

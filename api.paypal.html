@@ -1,0 +1,70 @@
+
+<!--======================
+CREANDO HOST VIRTUALES
+=======================-->
+
+1. ve a C:\xampp\apache\conf\extra\httpd-vhosts.conf
+1. Agregar la siguiente linea de cogido, sin comentarios html oviamente, para que el nombre de proyecto, de ventas-suscripcion cambie a academyoflife.com
+
+## Host virtual o url virtual para ventas-suscripcion
+<!-- 	<VirtualHost *:80>
+    	DocumentRoot "C:/xampp/htdocs/ventas-suscripcion"
+		ServerName academyoflife.com
+	</VirtualHost> -->
+
+3. Despues ve a C:\Windows\System32\drivers\etc\hosts y coloca lo siguiente (tal cual la url como el parametro servername del archivo anterior): 
+127.0.0.1      academyoflife.com         #Xammp is magic too!
+4. Reinicia tu PC
+5. Cambia tus archivos de controladores de rutas del proyecto de "http://localhost/ventas-suscripcion/" a "http://academyoflife.com/";
+
+<!--======================
+CREANDO API DE PAYPAL EN MODO PRUEBA (GENERANDO KeyID, Secret y access_token)
+=======================-->
+1. Crea tu cuenta paypal
+2. ingresa a https://developer.paypal.com/ con tu cuenta
+3. ve a dashoborad https://developer.paypal.com/developer/applications/ y da clic en create an app de nombre suscripciones en donde tendrás tu 
+	kedId y tu Secret
+4. Clic en https://developer.paypal.com/docs/api/overview/ y clic en Postman app https://developer.paypal.com/docs/api/get-an-access-token-postman/
+5. Es necesario ya tener instalado Postman (bajajo e instalalo y ya)
+6. Seguir la instrucciones para tener si o si un acces token:
+		In Postman, select the POST method.
+
+		Enter the https://api-m.sandbox.paypal.com/v1/oauth2/token request URL.
+
+		On the Authorization tab, select the Basic Auth type.
+
+		Type your client ID in the Username box, and type your secret in the Password box.
+
+		On the Body tab, select x-www-form-urlencoded.
+
+		Type grant_type in the key box, and type client_credentials in the value box.
+
+		Click Send.
+7. Y este es el pinxi access token 
+	"access_token": "A21AAIDuVOkj3CavapgKzfnMxzDhfr-0zm2INW0Qtn7IH1Fr8IfbeOaTbztj63LwgSpIG39y5Kg6Ew0lq58iuJCKjnWIqewgQ"
+8. Por ultimo en postman seleccionar code y copiar el PHP-cURl, ya que el access_token se genera siempre  que se haga una peticion nueva y mejor usamos este pedo:
+	<?php
+
+		$curl = curl_init();
+
+		curl_setopt_array($curl, array(
+		  CURLOPT_URL => 'https://api-m.sandbox.paypal.com/v1/oauth2/token',
+		  CURLOPT_RETURNTRANSFER => true,
+		  CURLOPT_ENCODING => '',
+		  CURLOPT_MAXREDIRS => 10,
+		  CURLOPT_TIMEOUT => 0,
+		  CURLOPT_FOLLOWLOCATION => true,
+		  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+		  CURLOPT_CUSTOMREQUEST => 'POST',
+		  CURLOPT_POSTFIELDS => 'grant_type=client_credentials',
+		  CURLOPT_HTTPHEADER => array(
+		    'Authorization: Basic QWJNU2NRVVBxbE9tamdqdXQ2cEJ1UXlVaHhCRGtHRzJMMms0SDlOVlFDN05LRjhDU29CZTVKc0FPUzRKcFN5dXZHVFRNc0ZCVDNPNk5yVDM6RU1VNW05dU1VNkZIVTdHMkJnYm9lblpTYUx3eVdTQ3lzano1NlNZcHBtTk1mbkpYLU4xVVI0cGZUd1c4azhDWnpRN2oxUjlJbW9tSDRlUjI=',
+		    'Content-Type: application/x-www-form-urlencoded'
+		  ),
+		));
+
+		$response = curl_exec($curl);
+
+		curl_close($curl);
+		echo $response;
+

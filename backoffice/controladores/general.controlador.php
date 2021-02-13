@@ -4,7 +4,7 @@ class ControladorGeneral{
 
 	// Controlador para la url
 	static public function ctrRuta(){
-		return "http://localhost/ventas-suscripcion/";
+		return "http://academyoflife.com/";
 	}
 
 	// Funcion para el valor de suscripcion

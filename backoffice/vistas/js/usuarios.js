@@ -125,16 +125,32 @@ $(".suscribirse").click(function (){
 
 	}else{
 		// Si todo sale bien
-		console.log("formulario listo");
-	}
-})
+		// console.log("formulario listo");
+		// Para envio de datos post
+		var datos=new FormData();
+		datos.append("suscripcion", "ok");
+
+			$.ajax({
+				url:"ajax/ajax.usuarios.php",
+				method: "POST",
+				data: datos,
+				cache:false,
+				contentType:false,
+				processData:false,
+				success:function(respuesta){
+					console.log("respuesta", respuesta);
+
+				}
+			})
+		}
+	})
 
 /*----------  INICIANDO DATA TABLES  ----------*/
 // Esto es solo para ver que tabla-usuarios.ajax.php se conectó correctamente
 $.ajax({
 	url:"ajax/tabla-usuarios.ajax.php",
 	success:function(respuesta){
-		console.log("respuesta", respuesta);
+		// console.log("respuesta", respuesta);
 
 	}
 })

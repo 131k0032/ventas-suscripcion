@@ -124,12 +124,12 @@ $(".suscribirse").click(function (){
 
 
 	}else{
-		// Si todo sale bien
+		// Si todo sale bien en cuanto a validación de usuarios sucede esto
 		// console.log("formulario listo");
 		// Para envio de datos post
 		var datos=new FormData();
 		datos.append("suscripcion", "ok");
-		datos.append("nombre", nombre); //Viene de   VALIDAR CAMPOS DE SUSCRIPCION
+		datos.append("nombre", nombre); //Viene de VALIDAR CAMPOS DE SUSCRIPCION
 		datos.append("email", email);  //Viene de VALIDAR CAMPOS DE SUSCRIPCION
 
 
@@ -141,8 +141,25 @@ $(".suscribirse").click(function (){
 				contentType:false,
 				processData:false,
 				//dataType:"json", //evita el error array to string conversion usando el echo $respuesta2; y no echo $respuesta2["id"];
+				// Antes de que se envie el success (esto es un preload )
+				beforeSend:function(){
+					// Antes de suscribirse, antes del boton suscribirse pon esta imagen
+					$(".suscribirse").after(`
+						<img src="vistas/img/plantilla/status.gif" class="ml-3" style="width:30px; height:30px;" alt="">
+						<span class="alert alert-warning">Procesando la suscripción, no cierres la página</span>
+					`)
+				},
+
 				success:function(respuesta){
-					console.log("respuesta", respuesta);
+					// console.log("respuesta", respuesta);
+
+					/*Redirige al href=https://www.sandbox.paypal.com/webapps/billing/subscriptions?ba_token=BA-97A17027A6139401V
+					que viene de $urlPaypal=$respuesta4["links"][0]["href"]; de ajax.usuarios.php*/
+					window.location=respuesta;
+					/*A partir de aqui podemos ver que se redirige a la pagina de pago y podemos hacer el pago con la cuenta 
+					ficticia de @personal.example.com* no con la de bussines, podremos observar que despues de eso nos redirige a 
+					http://academyoflife.com/backoffice/index.php?pagina=perfil&subscription_id=I-0NT6HGVP2AEP&ba_token=BA-17751414368386204&token=6NP623964C097044A
+					donde podemos observar un subscription_id que será necesario capturar*/
 
 				}
 			})

@@ -27,7 +27,7 @@ class AjaxUsuarios{
 
 		$ruta =ControladorGeneral::ctrRuta();
 		$valorSuscripcion =ControladorGeneral::ctrValorSuscripcion();
-		$fecha=substr(date("c"), 0, 6)."Z";
+		$fecha=substr(date("c"), 0, -6)."Z";
 		// echo "Hola";
 		/*================================================================
 		=            PARA CREAR EL TOKEN CON LA API DE PAYPAL            =
@@ -214,8 +214,8 @@ class AjaxUsuarios{
 								      "payer_selected": "PAYPAL",
 								      "payee_preferred": "IMMEDIATE_PAYMENT_REQUIRED"
 								    },
-								    "return_url": "'.$ruta.'/backoffice/index.php?pagina=perfil",
-								    "cancel_url": "'.$ruta.'/backoffice/index.php?pagina=perfil"
+								    "return_url": "'.$ruta.'backoffice/index.php?pagina=perfil",
+								    "cancel_url": "'.$ruta.'backoffice/index.php?pagina=perfil"
 								  }
 								}',
 								  CURLOPT_HTTPHEADER => array(
@@ -233,7 +233,15 @@ class AjaxUsuarios{
 										// echo $response;
 										$respuesta4= json_decode($response, true);
 										// echo $respuesta2["id"];
-										$urlPaypal=$respuesta3["links"][0]["href"];
+										/*links[0]["href"]= a linkns:https://www.sandbox.paypal.com/webapps/billing/subscriptions?ba_token=BA-97A17027A6139401V
+										 "links": [
+										        {
+										            "href": "https://www.sandbox.paypal.com/webapps/billing/subscriptions?ba_token=BA-97A17027A6139401V",
+										            "rel": "approve",
+										            "method": "GET"
+										        }*/
+										$urlPaypal=$respuesta4["links"][0]["href"];
+										// echo '<pre>'; print_r($respuesta4); echo '</pre>';
 										echo $urlPaypal;
 									}
 								

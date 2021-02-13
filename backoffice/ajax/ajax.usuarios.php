@@ -18,18 +18,23 @@ class AjaxUsuarios{
 	}
 
 	/*----------  Sucripcion con paypal  ----------*/
-	public $sucripcion;
+	// Cuando capturas por post es mejor ponerlo por public
+	public $sucripcion; //Viene de usuarios.js como 	datos.append("suscriocion", "ok");
+	public $nombre; //Viene de usuarios.js como 	datos.append("nombre", nombre);
+	public $email; //Viene de usuarios.js como 	datos.append("nombre", nombre);
 
 	public function ajaxSuscripcion(){
 
 		$ruta =ControladorGeneral::ctrRuta();
 		$valorSuscripcion =ControladorGeneral::ctrValorSuscripcion();
+		$fecha=substr(date("c"), 0, 6)."Z";
 		// echo "Hola";
-
-		/**** para crear el access_token****/
+		/*================================================================
+		=            PARA CREAR EL TOKEN CON LA API DE PAYPAL            =
+		================================================================*/
 		$curl1 = curl_init();
 
-		curl_setopt_array($curl1, array(
+		  curl_setopt_array($curl1, array(
 		  CURLOPT_URL => 'https://api-m.sandbox.paypal.com/v1/oauth2/token',
 		  CURLOPT_RETURNTRANSFER => true,
 		  CURLOPT_ENCODING => '',
@@ -52,6 +57,8 @@ class AjaxUsuarios{
 		if ($err) {
 			echo "cURL Error# :" .$err;
 		}else{
+
+
 			// echo $response;
 			// Muestra valores json y con true captura propiedades
 			$respuesta1= json_decode($response, true);
@@ -60,7 +67,9 @@ class AjaxUsuarios{
 			// Mostrando el token en console.log () de usuarios.js
 			 // echo $token;
 
-			/****Creando el producto(es necesarrio el token)****/
+				/*================================================================
+			  CREANDO EL PRODUCTO CON LA API DE paypal (token anterior es necesario)
+				================================================================*/
 			
 			$curl2 = curl_init();
 
@@ -100,7 +109,10 @@ class AjaxUsuarios{
 
 				// echo $idProducto;
 
-				/***Creando el plan de pagos***/
+					 /*=======================================================================================================
+					 =           	  CREANDO EL PLAN CON LA API DE paypal (id del producto anterior es necesario)            =
+					 =======================================================================================================*/
+					 
 					  $curl3 = curl_init();
 
 					  curl_setopt_array($curl3, array(
@@ -162,10 +174,70 @@ class AjaxUsuarios{
 						}else{
 						// echo $response;
 							// echo $response;
+
+							/*=======================================================================================================
+							=            CREANDO LA SUSCRIPCION CON LA API DE paypal (id del plan anterior es necesario)            =
+							=======================================================================================================*/
+							
 							$respuesta3= json_decode($response, true);
 							// echo $respuesta2["id"];
 							$idPlan=$respuesta3["id"];
-							echo $idPlan;
+							// echo $idPlan;
+							$curl4 = curl_init();
+
+
+								  curl_setopt_array($curl4, array(
+								  CURLOPT_URL => 'https://api-m.sandbox.paypal.com/v1/billing/subscriptions',
+								  CURLOPT_RETURNTRANSFER => true,
+								  CURLOPT_ENCODING => '',
+								  CURLOPT_MAXREDIRS => 10,
+								  CURLOPT_TIMEOUT => 0,
+								  CURLOPT_FOLLOWLOCATION => true,
+								  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+								  CURLOPT_CUSTOMREQUEST => 'POST',
+								  CURLOPT_POSTFIELDS =>'{
+								  "plan_id": "'.$idPlan.'",
+								  "start_time": "'.$fecha.'",
+								  "subscriber": {
+								    "name": {
+								      "given_name": "'.$this->nombre.'"
+								    },
+								    "email_address": "'.$this->email.'"
+								  },
+								  "auto_renewal":true,
+								  "application_context": {
+								    "brand_name": "Academy of life",
+								    "locale": "en-US",
+								    "shipping_preference": "SET_PROVIDED_ADDRESS",
+								    "user_action": "SUBSCRIBE_NOW",
+								    "payment_method": {
+								      "payer_selected": "PAYPAL",
+								      "payee_preferred": "IMMEDIATE_PAYMENT_REQUIRED"
+								    },
+								    "return_url": "'.$ruta.'/backoffice/index.php?pagina=perfil",
+								    "cancel_url": "'.$ruta.'/backoffice/index.php?pagina=perfil"
+								  }
+								}',
+								  CURLOPT_HTTPHEADER => array(
+								    'Content-Type: application/json',
+								     'Authorization: Bearer '.$token.''
+								  ),
+								));
+
+								$response = curl_exec($curl4);
+								curl_close($curl4);
+
+								if ($err) {
+									echo "cURL Error# :" .$err;
+									}else{
+										// echo $response;
+										$respuesta4= json_decode($response, true);
+										// echo $respuesta2["id"];
+										$urlPaypal=$respuesta3["links"][0]["href"];
+										echo $urlPaypal;
+									}
+								
+
 					}
 					
 
@@ -190,5 +262,9 @@ if (isset($_POST["validarEmail"])) {
 // Creando objetos fuera de la clase para usar la funcion sucripcionpaypal
 if (isset($_POST["suscripcion"]) && $_POST["suscripcion"]=="ok") {
 	$paypal = new AjaxUsuarios();
+	$paypal->nombre=$_POST["nombre"]; //Viene de usuarios.js como 	datos.append("nombre", nombre);
+	$paypal->email=$_POST["email"]; //Viene de usuarios.js como 	datos.append("email", email);
 	$paypal->ajaxSuscripcion();
 }
+
+// Todo lo de sandbox puedes verlo documentado en el archivo api.paypal.html

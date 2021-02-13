@@ -138,3 +138,46 @@ FORMAS DE PAGO EN API DE PAYPAL
 			    "inclusive": false
 			  }
 			}
+
+<!--======================
+SUSCRIPCION EN API DE PAYPAL
+=======================-->
+1. Ir a https://developer.paypal.com/docs/api/subscriptions/v1/#subscriptions_create
+2. En postman crear una nueva peticion de tipo post con la url https://api-m.sandbox.paypal.com/v1/billing/subscriptions y noAuth en autorizations
+3. En la seccion headers colocar:
+		"key"       : "values"
+	-H "Content-Type: application/json" 
+	Recuerda que aqui se pone el Bearer espacion y tu access_token
+	-H "Authorization: Bearer <Access-Token>"
+4. Esto va en el body de postman (en formato raw) si las comillas simples, recuerda cambiar plan_id por el que genera la consola de ultimo
+
+
+{
+  "plan_id": "P-6E817599PF626953GMATWVNY",
+  "start_time": "2021-13-02T00:00:00Z",
+  "subscriber": {
+    "name": {
+      "given_name": "Juan"
+    },
+    "email_address": "juan@gmail.com"
+  },
+  "auto_renewal":true,
+  "application_context": {
+    "brand_name": "Academy of life",
+    "locale": "en-US",
+    "shipping_preference": "SET_PROVIDED_ADDRESS",
+    "user_action": "SUBSCRIBE_NOW",
+    "payment_method": {
+      "payer_selected": "PAYPAL",
+      "payee_preferred": "IMMEDIATE_PAYMENT_REQUIRED"
+    },
+    "return_url": "http://academyoflife.com/backoffice/index.php?pagina=perfil",
+    "cancel_url": "http://academyoflife.com/backoffice/index.php?pagina=perfil"
+  }
+}
+
+A partir de aqui con el enlace generado puedes probar el pago:
+con tu correo de sanbox por ejemplo tienes que usar sb-aadxo5084237@personal.example.com para loguearte y probar los planes
+
+Con este de sb-noqal5088846@business.example.com es con el que creas tus planes y productos
+Recuerda que puedes ver tus cuentas en https://developer.paypal.com/developer/accounts/ así como las contraseñas

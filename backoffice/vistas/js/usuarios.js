@@ -129,6 +129,9 @@ $(".suscribirse").click(function (){
 		// Para envio de datos post
 		var datos=new FormData();
 		datos.append("suscripcion", "ok");
+		datos.append("nombre", nombre); //Viene de   VALIDAR CAMPOS DE SUSCRIPCION
+		datos.append("email", email);  //Viene de VALIDAR CAMPOS DE SUSCRIPCION
+
 
 			$.ajax({
 				url:"ajax/ajax.usuarios.php",

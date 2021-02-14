@@ -181,3 +181,104 @@ con tu correo de sanbox por ejemplo tienes que usar sb-aadxo5084237@personal.exa
 
 Con este de sb-noqal5088846@business.example.com es con el que creas tus planes y productos
 Recuerda que puedes ver tus cuentas en https://developer.paypal.com/developer/accounts/ así como las contraseñas
+
+<!--======================
+UNA VEZ GENERADO LA SUSCRIPCIÓN PARA VER EL ESTATUS
+=======================-->
+
+1. En postman hacer una peticion tipo GET y con noAuth a la url https://api-m.sandbox.paypal.com/v1/billing/subscriptions/I-0NT6HGVP2AEP
+en donde la I-0NT6HGVP2AEP es el id_subscription generado al dar clic en suscribirse y haber retornado del back office en este caso este
+http://academyoflife.com/backoffice/index.php?pagina=perfil&subscription_id=I-0NT6HGVP2AEP&ba_token=BA-17751414368386204&token=6NP623964C097044A
+2. En la seccion headers colocar:
+		"key"       : "values"
+	-H "Content-Type: application/json" 
+	Recuerda que aqui se pone el Bearer espacion y tu access_token y que además de ser necesario volverás a generarlo cuando expire
+	-H "Authorization: Bearer <Access-Token>"
+3. Aqui no se pone body ni nada solo es darle sen
+4. Donde devolverá algo informativo como esto:
+{
+    "status": "ACTIVE",
+    "status_update_time": "2021-02-13T19:50:59Z",
+    "id": "I-0NT6HGVP2AEP",
+    "plan_id": "P-19J5092949703300XMAUCYGI",
+    "start_time": "2021-02-13T20:44:22Z",
+    "quantity": "1",
+    "shipping_amount": {
+        "currency_code": "USD",
+        "value": "0.0"
+    },
+    "subscriber": {
+        "email_address": "sb-aadxo5084237@personal.example.com",
+        "payer_id": "2LY3FMZXAARL2",
+        "name": {
+            "given_name": "John",
+            "surname": "Doe"
+        },
+        "shipping_address": {
+            "address": {
+                "address_line_1": "Calle Juarez 1",
+                "address_line_2": "Col. Cuauhtemoc",
+                "admin_area_2": "Miguel Hidalgo",
+                "admin_area_1": "Ciudad de Mexico",
+                "postal_code": "11580",
+                "country_code": "MX"
+            }
+        }
+    },
+    "billing_info": {
+        "outstanding_balance": {
+            "currency_code": "USD",
+            "value": "0.0"
+        },
+        "cycle_executions": [
+            {
+                "tenure_type": "REGULAR",
+                "sequence": 1,
+                "cycles_completed": 1,
+                "cycles_remaining": 98,
+                "current_pricing_scheme_version": 1,
+                "total_cycles": 99
+            }
+        ],
+        "last_payment": {
+            "amount": {
+                "currency_code": "USD",
+                "value": "10.0"
+            },
+            "time": "2021-02-13T19:48:17Z"
+        },
+        "next_billing_time": "2021-03-13T10:00:00Z",
+        "final_payment_time": "2029-04-13T10:00:00Z",
+        "failed_payments_count": 0
+    },
+    "create_time": "2021-02-13T19:44:26Z",
+    "update_time": "2021-02-13T19:50:59Z",
+    "plan_overridden": false,
+    "links": [
+        {
+            "href": "https://api.sandbox.paypal.com/v1/billing/subscriptions/I-0NT6HGVP2AEP/cancel",
+            "rel": "cancel",
+            "method": "POST"
+        },
+        {
+            "href": "https://api.sandbox.paypal.com/v1/billing/subscriptions/I-0NT6HGVP2AEP",
+            "rel": "edit",
+            "method": "PATCH"
+        },
+        {
+            "href": "https://api.sandbox.paypal.com/v1/billing/subscriptions/I-0NT6HGVP2AEP",
+            "rel": "self",
+            "method": "GET"
+        },
+        {
+            "href": "https://api.sandbox.paypal.com/v1/billing/subscriptions/I-0NT6HGVP2AEP/suspend",
+            "rel": "suspend",
+            "method": "POST"
+        },
+        {
+            "href": "https://api.sandbox.paypal.com/v1/billing/subscriptions/I-0NT6HGVP2AEP/capture",
+            "rel": "capture",
+            "method": "POST"
+        }
+    ]
+}

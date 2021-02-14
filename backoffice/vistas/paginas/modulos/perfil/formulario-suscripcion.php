@@ -1,8 +1,13 @@
+<!-- Si el usuario no está suscrito, 0=no suscrito 1=sucrito -->
+
+<?php if($usuario["suscripcion"]==0): ?>
+
 <div class="col-12 col-md-8">
 	<div class="card card-primary card-outline">
 		<div class="card-header">
 			<h5 class="m-0 text-uppercase text-secondary">
-				<strong>Suscripción de $10 mensual</strong>
+				<!-- $valorSuscripcion viene de plantilla.php -->
+				<strong>Suscripción de $<?php echo $valorSuscripcion;  ?> mensual</strong>
 			</h5>
 		</div>
 
@@ -165,6 +170,44 @@
 	</div>
 </div>
 
+<!-- Si ya está suscrito -->
+<?php else: ?>
+
+<div class="class col-12 col-md-8">
+	<div class="card card-primary card-outline">
+		<div class="card-header">
+			<h5 class="m-0 text-uppercase text-secondary float-left">Suscripcion activa</h5>
+			<span class="m-0 text-secondary float-right">Se renueva automáticamente el <?php echo $usuario["vencimiento"]; ?> </span>
+		</div>
+
+		<div class="card-body">
+			<h6 class="pb-2">Comparte el enlace de afiliado</h6>
+			<div class="input-group">
+				<div class="input-group-prepend">
+					<span class="p-2 bg-info rounded-left copiarLink" style="cursor:pointer;">Copiar</span>
+				</div>
+				<input type="text" class="form-control" id="linkAfiliado" value="<?php echo $ruta.$usuario["enlace_afiliado"]; ?>" readonly>
+			</div>
+
+			<h6 class="pt-3 pb-2">Cuenta de Paypal donde recibirpas tus pagos de comisiones</h6>
+				<div class="input-group">
+					<div class="input-group-prepend">
+						<span class="p-2 bg-primary rounded-left"><i class="fab fa-paypal"></i></span>
+					</div>
+					<input type="text" class="form-control" id="correoPaypal" value="<?php echo $usuario["paypal"]; ?>" readonly>
+				</div>
+
+		</div>
+
+		<div class="card-footer">
+			<a href="#" class="btn btn-dark float-left" target="_blank">Descargar contrato</a>
+			<button class="btn btn-danger float-right cancelarSuscripcion">Cancelar suscripción</button>
+		</div>
+
+	</div>
+</div>
+
+<?php endif ?>
 
 <?php 
 // Verificamos que la url exista la variable get de nombre subscription_id

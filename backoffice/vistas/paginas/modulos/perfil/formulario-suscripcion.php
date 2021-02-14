@@ -167,8 +167,8 @@
 
 
 <?php 
-// Verificamos que la url exista la variable get de nombre description_id
-	if (isset($_GET["description_id"])) {
+// Verificamos que la url exista la variable get de nombre subscription_id
+	if (isset($_GET["subscription_id"])) {
 		/*================================================================
 		=            PARA CREAR EL TOKEN CON LA API DE PAYPAL            =
 		================================================================*/
@@ -204,6 +204,122 @@
 			$respuesta1= json_decode($response, true);
 			// Almacenando el access_token en una variable
 			$token=$respuesta1["access_token"];
+			// echo '<pre>'; print_r($token); echo '</pre>';
+
+			/*======================================================================
+			=            PARA VER Y VALIDAR EL ESTTUS DE LA SUSCTIPCION            =
+			======================================================================*/
+			$curl2 = curl_init();
+
+			  curl_setopt_array($curl2, array(
+			  CURLOPT_URL => 'https://api-m.sandbox.paypal.com/v1/billing/subscriptions/'.$_GET["subscription_id"].'',
+			  CURLOPT_RETURNTRANSFER => true,
+			  CURLOPT_ENCODING => '',
+			  CURLOPT_MAXREDIRS => 10,
+			  CURLOPT_TIMEOUT => 300,
+			  CURLOPT_FOLLOWLOCATION => true,
+			  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+			  CURLOPT_CUSTOMREQUEST => 'GET',
+			  CURLOPT_HTTPHEADER => array(
+			    'Content-Type: application/json',
+			     'Authorization: Bearer '.$token.''
+			  ),
+			));
+
+			$response = curl_exec($curl2);
+			curl_close($curl2);
+
+			if ($err) {
+				echo "cURL Error# :" .$err;
+			}else{
+				// echo $response;
+				$respuesta2= json_decode($response, true);
+				// echo '<pre>'; print_r($respuesta2); echo '</pre>';
+
+				// Toma la propiedad estatus de la suscripcion
+				$estado=$respuesta2["status"];
+
+				// Si está activo
+				if ($estado=="ACTIVE") {
+					// tomamos el email de paypal
+					$paypal=$respuesta2["subscriber"]["email_address"];
+					$suscripcion=1; //1 ¡Suscrito, 0 no ¡Suscrito
+					$id_suscripcion=$_GET["subscription_id"];
+					$ciclo_pago=1;
+
+					// $fechaInicial= substr($respuesta2["status_update_time"],0,-10);
+					// $fechaVencimiento=strtotime('+1 month', strtotime($fechaInicial));
+					// $vencimiento=date("Y-m-d", $fechaVencimiento);
+
+					$fechaContrato= substr($respuesta2["status_update_time"],0,-10);
+					$fechaInicial=substr($respuesta2["billing_info"]["next_billing_time"],0,-10);
+
+					$vencimiento=date("Y-m-d", strtotime($fechaInicial));
+
+					//Llamando a las cookies que vienen de usuarios.js 
+					$enlace_afiliado=$_COOKIE["enlace_afiliado"];
+					$patrocinador=$_COOKIE["patrocinador"];
+					$pais=$_COOKIE["pais"];
+					$codigo_pais=$_COOKIE["codigo_pais"];
+					$telefono_movil=$_COOKIE["telefono_movil"];
+					$firma=$_COOKIE["firma"];
+					
+					// agrupando datos en un array
+					$datos=array(
+						"id"=>$usuario["id"],//Variable de sesion, se encuentra en plantilla.php
+						"suscripcion"=>$suscripcion,
+						"id_suscripcion"=>$id_suscripcion,
+						"ciclo_pago"=>$ciclo_pago,
+						"vencimiento"=>$vencimiento,
+						"enlace_afiliado"=>$enlace_afiliado,
+						"patrocinador"=>$patrocinador,
+						"paypal"=>$paypal,
+						"pais"=>$pais,
+						"codigo_pais"=>$codigo_pais,
+						"telefono_movil"=>$telefono_movil,
+						"firma"=>$firma,
+						"fecha_contrato"=>$fechaContrato
+
+					);
+					// echo '<pre>'; print_r($datos); echo '</pre>';	
+					$iniciarSuscripcion=ControladorUsuarios::ctrIniciarSuscripcion($datos);
+					// Si la suscripcion retorna "ok", que viene del controlador
+					if ($iniciarSuscripcion=="ok") {
+							echo '<script>
+									swal({
+										type:"success",
+										title: "¡Suscrito correctamente!",
+										text: "¡Bienvenido ahora ya puede ganar millones :D !",
+										showConfirmButton: true,
+										confirmButtonText: "Cerrar"
+									}).then(function(result){
+
+										if(result.value){
+											window.location = "'.$ruta.'backoffice/perfil";
+										}
+									});	
+								</script>';	
+						}else{
+							echo '<script>
+									swal({
+										type:"error",
+										title: "¡Error en la suscripcion!",
+										text: "¡Ups ahora ya no puede ganar millones D: mejor mande un correo a academyoflife@info.com para mas detalles si han generado cargos a su cuenta !",
+										showConfirmButton: true,
+										confirmButtonText: "Cerrar"
+									}).then(function(result){
+
+										if(result.value){
+											window.location = "'.$ruta.'backoffice/perfil";
+										}
+									});	
+								</script>';	
+						}
+
+				}
+
+			}
+			
 		}
 	}
  ?>

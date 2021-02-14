@@ -569,5 +569,12 @@ class ControladorUsuarios{
 	}
 
 
+static public function ctrIniciarSuscripcion($datos){
+
+	$tabla="usuarios";
+	$respuesta=ModeloUsuarios::mdlIniciarSuscripcion($tabla,$datos);
+	return $respuesta; //Mandalo a formulario-suscripcion.php
+
+	}
 
 }

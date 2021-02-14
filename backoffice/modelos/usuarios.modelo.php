@@ -56,13 +56,57 @@ class ModeloUsuarios{
 			if($stmt->execute()){
 				return "ok";
 			}else{
-				return print_r(Conexion::conectar()-errorInfo());
+				return print_r(Conexion::conectar()->errorInSETfo());
 			}
 			$stmt->close();
 			$stmt=null;
 		}
 
 
+	/*----------  INICIAR SUCRIPCION  ----------*/
+	static public function mdlIniciarSuscripcion ($tabla, $datos){
+		$stmt=Conexion::conectar()->prepare("
+						UPDATE $tabla  
+						SET 
+						suscripcion =:suscripcion, 
+						id_suscripcion=:id_suscripcion,
+						ciclo_pago=:ciclo_pago,
+						vencimiento=:vencimiento,
+						enlace_afiliado=:enlace_afiliado,
+						patrocinador=:patrocinador,
+						paypal=:paypal,
+						pais=:pais,
+						codigo_pais=:codigo_pais,
+						telefono_movil=:telefono_movil,
+						firma=:firma,
+						fecha_contrato:=:fecha_contrato
+						WHERE 
+						id=:id");
 
+		$stmt->bindParam(":suscripcion", $datos["suscripcion"], PDO::PARAM_STR);	
+		$stmt->bindParam(":id_suscripcion", $datos["id_suscripcion"], PDO::PARAM_STR);
+		$stmt->bindParam(":ciclo_pago", $datos["ciclo_pago"], PDO::PARAM_STR);
+		$stmt->bindParam(":vencimiento", $datos["vencimiento"], PDO::PARAM_STR);
+		$stmt->bindParam(":enlace_afiliado", $datos["enlace_afiliado"], PDO::PARAM_STR);
+		$stmt->bindParam(":patrocinador", $datos["patrocinador"], PDO::PARAM_STR);
+		$stmt->bindParam(":paypal", $datos["paypal"], PDO::PARAM_STR);
+		$stmt->bindParam(":pais", $datos["pais"], PDO::PARAM_STR);
+		$stmt->bindParam(":codigo_pais", $datos["codigo_pais"], PDO::PARAM_STR);
+		$stmt->bindParam(":telefono_movil", $datos["telefono_movil"], PDO::PARAM_STR);
+		$stmt->bindParam(":firma", $datos["firma"], PDO::PARAM_STR);
+		$stmt->bindParam(":fecha_contrato", $datos["fecha_contrato"], PDO::PARAM_STR);
+		$stmt->bindParam(":id", $datos["id"], PDO::PARAM_INT);
+
+		if($stmt->execute()){
+				return "ok";
+			}else{
+				return print_r(Conexion::conectar()->errorInSETfo());
+			}
+			$stmt->close();
+			$stmt=null;
+
+
+
+	}
 
 }

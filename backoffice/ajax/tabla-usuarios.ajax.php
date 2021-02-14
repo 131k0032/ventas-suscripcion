@@ -3,7 +3,8 @@
 // Llamndo controladores y modelos de usuarios
  require_once "../controladores/usuarios.controlador.php";
  require_once "../modelos/usuarios.modelo.php";
-
+ // Controlador de rutas
+ require_once "../controladores/general.controlador.php";
 
   class TablaUsuarios{
 
@@ -13,6 +14,8 @@
       $item=null;
       $valor=null;
       $usuarios=ControladorUsuarios::ctrMostrarUsuario($item, $valor);
+      // variables generales definidas del ControladorGeneral en general.controlador.php
+      $ruta=ControladorGeneral::ctrRuta();
       
       // Si no hay usuarios
       if (count($usuarios)==0) {
@@ -63,7 +66,7 @@
                 "'.$suscripcion.'",
                 "'.$value["id_suscripcion"].'",
                 "'.$value["ciclo_pago"].'",
-                "'.$value["enlace_afiliado"].'",
+                "'.$ruta.$value["enlace_afiliado"].'",
                 "'.$value["patrocinador"].'",
                 "'.$value["paypal"].'",
                 "'.$value["fecha"].'",

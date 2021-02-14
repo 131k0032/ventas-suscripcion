@@ -44,7 +44,7 @@ CREATE TABLE `usuarios` (
   `patrocinador` text DEFAULT NULL,
   `paypal` text DEFAULT NULL,
   `pais` text DEFAULT NULL,
-  `cod_pais` text DEFAULT NULL,
+  `codigo_pais` text DEFAULT NULL,
   `telefono_movil` text DEFAULT NULL,
   `firma` text DEFAULT NULL,
   `fecha_contrato` date DEFAULT NULL,
@@ -55,7 +55,7 @@ CREATE TABLE `usuarios` (
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `perfil`, `nombre`, `password`, `email`, `suscripcion`, `id_suscripcion`, `ciclo_pago`, `vencimiento`, `verificacion`, `email_encriptado`, `foto`, `enlace_afiliado`, `patrocinador`, `paypal`, `pais`, `cod_pais`, `telefono_movil`, `firma`, `fecha_contrato`, `fecha`) VALUES
+INSERT INTO `usuarios` (`id`, `perfil`, `nombre`, `password`, `email`, `suscripcion`, `id_suscripcion`, `ciclo_pago`, `vencimiento`, `verificacion`, `email_encriptado`, `foto`, `enlace_afiliado`, `patrocinador`, `paypal`, `pais`, `codigo_pais`, `telefono_movil`, `firma`, `fecha_contrato`, `fecha`) VALUES
 (1, 'admin', 'academy-of-life', 'soloyolose', 'admin@gmail.com', 1, NULL, NULL, NULL, 1, NULL, NULL, 'academy-of-life', NULL, 'mitnick117@hotmail.com', NULL, NULL, NULL, NULL, NULL, '2021-02-09 00:01:56');
 
 --

@@ -64,6 +64,18 @@ $(".repetirFirma").click(function(){
 
 })
 
+
+/*----------  FUNCION PARA VALIDAR COOKIES  ----------*/
+function crearCookies(nombre, valor, diasExpiracion){
+
+	var hoy = new Date();
+	// Exipiracion
+	hoy.setTime(hoy.getTime()+( diasExpiracion*24*60*1000 ));
+	var fechaExpiracion = "expires=" +hoy.toUTCString();
+	// Enlazamos parámatros
+	document.cookie = nombre + "=" + valor + "; " + fechaExpiracion;
+}
+
 /*----------  VALIDAR CAMPOS DE SUSCRIPCION  ----------*/
 // Al darle clic al boton .suscribirse del form
 $(".suscribirse").click(function (){
@@ -124,6 +136,18 @@ $(".suscribirse").click(function (){
 
 
 	}else{
+
+		// Creamos cookies de las variables de tipo inputs
+		// crearCookies(nombre, valor, diasExpiracion) llamando la funcion que está arriba;
+		crearCookies("enlace_afiliado", enlace_afiliado, 1);//viene de var enlace_afiliado = $("#inputAfiliado").val(); - 1 dia de expitacion
+		crearCookies("patrocinador", patrocinador, 1);
+		crearCookies("pais", pais, 1);
+		crearCookies("codigo_pais", codigo_pais, 1);
+		crearCookies("telefono_movil", telefono_movil, 1);
+		crearCookies("red", red, 1);
+		crearCookies("firma", firma, 1);
+
+
 		// Si todo sale bien en cuanto a validación de usuarios sucede esto
 		// console.log("formulario listo");
 		// Para envio de datos post

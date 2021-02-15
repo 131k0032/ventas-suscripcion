@@ -100,39 +100,43 @@ if(isset($_GET["pagina"])){
 		}
 
 	}
+	
+	# ======  VALIDAR ENLACE DE AFILIADO  ======= #
 
-	// Si es igual a inicio
-	if($_GET["pagina"]=="inicio" ){
-		// Carga el archivo de inicio
+	$validarEnlace=ControladorUsuarios::ctrMostrarUsuario("enlace_afiliado", $_GET["pagina"]);
+
+	if ($_GET["pagina"] == isset($validarEnlace["enlace_afiliado"]) && isset($validarEnlace["suscripcion"])==1) {
+		// Cookie de 7 dias
+		setcookie("patrocinador", $validarEnlace["enlace_afiliado"], time()+ 608400, "/");
 		include "paginas/inicio.php"; 
-	}
 
-	// Si pagina es igual a ingreso
-	if($_GET["pagina"]=="ingreso"){
-		if(isset($_POST["idioma"])){
-			if ($_POST["idioma"]=="es") {
-				include "paginas/ingreso.php"; 
+		}else if($_GET["pagina"]=="inicio" ){// Si es igual a inicio
+			// Carga el archivo de inicio
+			include "paginas/inicio.php"; 
+		}else if($_GET["pagina"]=="ingreso"){// Si pagina es igual a ingreso
+			if(isset($_POST["idioma"])){
+				if ($_POST["idioma"]=="es") {
+					include "paginas/ingreso.php"; 
+				}else{
+					include "paginas/ingreso_en.php"; 
+				}
 			}else{
-				include "paginas/ingreso_en.php"; 
+				// Default español
+				include "paginas/ingreso.php"; 	
 			}
-		}else{
-			// Default español
-			include "paginas/ingreso.php"; 	
-		}
-	}
-
-	// Si pagina es igual a ingreso
-	if($_GET["pagina"]=="registro"){
-		if(isset($_POST["idioma"])){
-			if ($_POST["idioma"]=="es") {
-				include "paginas/registro.php"; 
+		}else if($_GET["pagina"]=="registro"){// Si pagina es igual a ingreso
+			if(isset($_POST["idioma"])){
+				if ($_POST["idioma"]=="es") {
+					include "paginas/registro.php"; 
+				}else{
+					include "paginas/registro_en.php"; 
+				}
 			}else{
-				include "paginas/registro_en.php"; 
+				// Default español
+				include "paginas/registro.php"; 	
 			}
-		}else{
-			// Default español
-			include "paginas/registro.php"; 	
-		}
+	}else{
+		include "paginas/inicio.php"; 
 	}
 
 

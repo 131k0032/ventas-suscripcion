@@ -235,3 +235,31 @@ $(".tablaUsuarios").DataTable({
 
    }
 });
+
+/*----------  COPIAR AL PORTAPAPELES  ----------*/
+$(".copiarLink").click(function (){
+	// Crea un input temporal
+	var temporal = $("<input>");
+	// Agrega al body la variable temporal
+	$("body").append(temporal);
+	// agrega el valor de #linkAfiliado a temporal y seleccionalo
+	temporal.val($("#linkAfiliado").val()).select();
+	document.execCommand("copy");
+	// removemos el input temporal
+	temporal.remove();
+
+	// this=.copiarLink
+	// Primer .parent sale <div class="input-group-prepend">
+	// Segundo .parent sale de <div class="input-group">
+	// after despues pone un div con el texto copiado
+	$(this).parent().parent().before(`
+
+		<div class="text-muted copiado">Enlace copiado en el portapapeles</div>
+	`)
+
+	// Esperamos dos segundos para que se remueva
+	setTimeout(function(){
+		$(".copiado").remove();
+	},2000)
+
+})

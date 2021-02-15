@@ -62,7 +62,12 @@
 						<!-- Si returna falso, no envia el formulario de lo contrario pues envia el form-->
 						<form class="mt-3 px-4" method="post" onsubmit="return validarPoliticas()">
 
-						<input type="hidden" value="academy-of-life" name="patrocinador">
+						<!-- Verificamos que exista cookies antes de registrar el patrocinador -->
+						<?php  if(isset($_COOKIE["patrocinador"])):?>
+							<input type="hidden" value="<?php echo $_COOKIE["patrocinador"] ?>" name="patrocinador">
+						<?php  else: ?>
+							<input type="hidden" value="academy-of-life" name="patrocinador">
+						<?php endif ?>
 
 						<input type="text" class="form-control my-3 py-3" placeholder="Nombre" name="registroNombre" required>
 

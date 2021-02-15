@@ -307,6 +307,25 @@
 					$telefono_movil=$_COOKIE["telefono_movil"];
 					$firma=$_COOKIE["firma"];
 					
+					// validamos que exista el patrocinador en bd y que coincida con la cookie
+					$validarPatrocinador=ControladorUsuarios::ctrMostrarUsuario("enlace_afiliado", $enlace_afiliado);
+
+					// Si viene vacío enlace de afiliado
+					if (!$validarPatrocinador) {
+						// $patrocinador se encuentra en plantilla
+						$confimarPatrocinador=$patrocinador;
+					}else{
+						// validamos que tambien esté suscrito
+						if ($validarPatrocinador["suscripcion"]==1) {
+							// Lo que venga en bd
+							$confimarPatrocinador=$validarPatrocinador["enlace_afiliado"];
+						}else{
+							$confimarPatrocinador=$patrocinador;
+						}
+						
+					}
+
+
 					// agrupando datos en un array
 					$datos=array(
 						"id"=>$usuario["id"],//Variable de sesion, se encuentra en plantilla.php
@@ -315,11 +334,12 @@
 						"ciclo_pago"=>$ciclo_pago,
 						"vencimiento"=>$vencimiento,
 						"enlace_afiliado"=>$enlace_afiliado,
-						"patrocinador"=>$patrocinador,
+						"patrocinador"=>$confimarPatrocinador,
 						"paypal"=>$paypal,
 						"pais"=>$pais,
 						"codigo_pais"=>$codigo_pais,
-						"telefono_movil"=>$telefono_movil,
+						"telefono_movil"=>$telefono_m
+						ovil,
 						"firma"=>$firma,
 						"fecha_contrato"=>$fechaContrato
 

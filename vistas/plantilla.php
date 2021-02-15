@@ -149,6 +149,16 @@ if(isset($_GET["pagina"])){
 
 ?>
 
+<!-- Si no está la cookie de ver_cookies ps muestra el letrero-->
+<?php if(!isset($_COOKIE["ver_cookies"])): ?>
+<!-- poner aviso de cookies -->
+<div class="jumbotron bg-white w-100 text-center py-4 shadow-lg cookies">
+	<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nemo vero facere enim ad sed eius doloremque, harum provident pariatur quod, dolore! Quam corrupti omnis, obcaecati atque eaque qui laboriosam quis.
+		<a href="../politicas-de-privacidad.html">Leer mas</a>
+	</p>
+	<button class="btn btn-info btn-sm px-5 ok">Ok</button>
+</div>
+<?php endif ?>
 
 <!-- Valor oculto que manda la ruta actual para vincular con script.js y ajax-->
 <input type="hidden" value="<?php echo $ruta; ?>" id="ruta">

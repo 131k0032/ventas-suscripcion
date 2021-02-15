@@ -241,3 +241,33 @@ function validarPoliticas(){
 		}
 	
 }
+
+
+
+/*=============================================
+OCULTAR BOTON DE COOKIES
+=============================================*/
+
+/*----------  FUNCION PARA VALIDAR COOKIES  ----------*/
+function crearCookies(nombre, valor, diasExpiracion){
+
+	var hoy = new Date();
+	// Exipiracion
+	hoy.setTime(hoy.getTime()+( diasExpiracion*24*60*1000 ));
+	var fechaExpiracion = "expires=" +hoy.toUTCString();
+	// Enlazamos parámatros
+	document.cookie = nombre + "=" + valor + "; " + fechaExpiracion;
+}
+
+
+// Retardo de 3 segundos luego aparece
+$(".cookies").delay(3000).fadeIn(1000);
+
+// Al hacer clic en el boton ok
+$(".cookies button").click(function(){
+	// Cookie de un dia
+	crearCookies("ver_cookies", "ok", 1);
+	// Y Oculta el padre de <button>
+	$(this).parent().hide();
+
+})

@@ -348,6 +348,15 @@ input[type="checkbox"]:checked + label[for="politicas"] span{
 }
 
 
+/*=============================================
+COOKIES
+=============================================*/
+.cookies{
+
+	position: fixed; /*Coloca a posicion fija el elemento*/
+	bottom:-31px;
+	display: block;
+}
 
 /*=============================================
 TABLET HORIZONTAL (LG revisamos en 1024px)

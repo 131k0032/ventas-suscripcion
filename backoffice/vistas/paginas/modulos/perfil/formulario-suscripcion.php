@@ -290,14 +290,14 @@
 					$id_suscripcion=$_GET["subscription_id"];
 					$ciclo_pago=1;
 
-					// $fechaInicial= substr($respuesta2["status_update_time"],0,-10);
-					// $fechaVencimiento=strtotime('+1 month', strtotime($fechaInicial));
-					// $vencimiento=date("Y-m-d", $fechaVencimiento);
+					$fechaInicial= substr($respuesta2["status_update_time"],0,-10);
+					$fechaVencimiento=strtotime('+1 month', strtotime($fechaInicial));
+					$vencimiento=date("Y-m-d", $fechaVencimiento);
 
-					$fechaContrato= substr($respuesta2["status_update_time"],0,-10);
-					$fechaInicial=substr($respuesta2["billing_info"]["next_billing_time"],0,-10);
+					// $fechaContrato= substr($respuesta2["status_update_time"],0,-10);
+					// $fechaInicial=substr($respuesta2["billing_info"]["next_billing_time"],0,-10);
 
-					$vencimiento=date("Y-m-d", strtotime($fechaInicial));
+					// $vencimiento=date("Y-m-d", strtotime($fechaInicial));
 
 					//Llamando a las cookies que vienen de usuarios.js 
 					$enlace_afiliado=$_COOKIE["enlace_afiliado"];
@@ -338,8 +338,7 @@
 						"paypal"=>$paypal,
 						"pais"=>$pais,
 						"codigo_pais"=>$codigo_pais,
-						"telefono_movil"=>$telefono_m
-						ovil,
+						"telefono_movil"=>$telefono_movil,
 						"firma"=>$firma,
 						"fecha_contrato"=>$fechaContrato
 
